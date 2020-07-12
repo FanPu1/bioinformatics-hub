@@ -1,4 +1,4 @@
-class BioinformaticsHub {
+class BioinformaticsApp {
   
   /**
    * Gets the version of the application.
@@ -9,4 +9,4 @@ class BioinformaticsHub {
   }
 }
 
-module.exports = BioinformaticsHub;
+module.exports = BioinformaticsApp;
