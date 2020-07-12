@@ -4,7 +4,7 @@ class BioinformaticsHub {
    * Gets the version of the application.
    * @returns {string} The version of current application.
    */
-  version() {
+  getVersion() {
     return "0.0.1";
   }
 }
