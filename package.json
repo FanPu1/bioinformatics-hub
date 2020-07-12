@@ -1,0 +1,28 @@
+{
+  "name": "bioinformatics-hub",
+  "version": "0.0.1",
+  "description": "An bioinformatics tool to manipulate and analyze DNA, RNA or protein sequences.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FanPu1/bioinformatics-hub.git"
+  },
+  "keywords": [
+    "DNA",
+    "RNA",
+    "protein",
+    "squence",
+    "analysis",
+    "prediction",
+    "bioinformatics"
+  ],
+  "author": "Fan Pu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FanPu1/bioinformatics-hub/issues"
+  },
+  "homepage": "https://github.com/FanPu1/bioinformatics-hub#readme"
+}
