@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "npx eslint .",
+    "lint-fix": "npx eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
   },
   "homepage": "https://github.com/FanPu1/bioinformatics-hub#readme",
   "devDependencies": {
+    "eslint": "^7.4.0",
     "jest": "^26.1.0"
   }
 }
