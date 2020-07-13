@@ -63,7 +63,7 @@ test ("test validateAndSetDataType method with invalid input", () => {
 });
 
 /**
- * Test that setFastaSequences returns expected {FastaSeq} object
+ * Test that setFastaSequences returns expected {FastaSeq} object.
  */
 test("test setFastaSequences returns expected object", () => {
   const app = new BioinformaticsApp("protein");

@@ -10,7 +10,7 @@ const unnamedSequence2 = "TTCGGCCGGC";
 /**
  * Test {FastaSeq} contains the expected attributes initialized by {BioinformaticsApp}.
  */
-test("asc", () => {
+test("test FastaSeq constructor and its attributes", () => {
   fs.readFile("./seeds/fastaDNASequence1.txt", (err, data) => {
     const fastaSequenceString = data.toString(); 
     const app = new BioinformaticsApp("dna");
