@@ -59,6 +59,16 @@ class FastaSeq {
     // once for loop finish, return seqMap
     return seqMap;
   }
+
+  /**
+   * Gets all sequence Ids from the input FASTA string (file).
+   * @returns {array} an array of sequence Ids.
+   */
+  getAllSequenceIds() {
+    const sequenceIds = [];
+    for (const key of this.seqMap.keys()) sequenceIds.push(key);
+    return sequenceIds;
+  }
 }
 
 module.exports = FastaSeq;

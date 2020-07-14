@@ -39,3 +39,18 @@ test("test FastaSeq constructor and its attributes", () => {
     expect(seqMap.get("Unnamed sequence 2")["sequenceId"]).toBe("Unnamed sequence 2");
   });
 });
+
+/**
+ * Test methods in FastaSeq object.
+ */
+test("test methods in FastSeq if input FASTA string is not blank or empty", () => {
+  fs.readFile("./seeds/fastaDNASequence1.txt", (err, data) => {
+    const fastaSequenceString = data.toString(); 
+    const app = new BioinformaticsApp("dna");
+    const fastaSeqObj = app.setFastaSequences(fastaSequenceString);
+    const expectedSequenceIds = ["Unnamed sequence 1", "Sample sequence 2", "Unnamed sequence 2"];
+    
+    // assert getAllsequenceId() method return all sequence Ids.
+    expect(fastaSeqObj.getAllSequenceIds().sort()).toEqual(expectedSequenceIds.sort());
+  });
+});

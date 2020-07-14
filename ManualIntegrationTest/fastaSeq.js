@@ -14,15 +14,21 @@ fs.readFile("./seeds/fastaDNASequence1.txt", (err, data) => { // read fasta sequ
     // integration test start here
     const fastaSequenceString = data.toString(); 
     const app = new BioinformaticsApp("dna");
-    app.setFastaSequences(fastaSequenceString);
+    const fastaSeqObj = app.setFastaSequences(fastaSequenceString);
 
     // you can use console log to check if the object is setup correctly.
     // console.log("Structure of BioinformaticsApp after create this object: ");
     // console.log(app);
+    
     // console.log("Structure of FastaSeq: ");
     // console.log(app.fastaSequenceObject);
-    console.log("Structure of SeqMap");
-    console.log(app.fastaSequenceObject.seqMap);
+    
+    // console.log("Structure of SeqMap");
+    // console.log(app.fastaSequenceObject.seqMap);
+    
+    // check getAll sequence Id method
+    console.log(fastaSeqObj.getAllSequenceIds());
+
   }
 });
 
