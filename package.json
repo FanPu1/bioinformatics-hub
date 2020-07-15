@@ -1,7 +1,7 @@
 {
   "name": "bioinformatics-hub",
-  "version": "0.0.1",
-  "description": "An bioinformatics tool to manipulate and analyze DNA, RNA or protein sequences.",
+  "version": "0.1.0",
+  "description": "An bioinformatics tool to predict and analyze DNA, RNA or protein sequences.",
   "main": "index.js",
   "scripts": {
     "test": "jest",

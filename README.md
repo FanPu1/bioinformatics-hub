@@ -1,5 +1,5 @@
 # Bioinformatics-Hub
-To DO
+This project is currently under development...
 
 ## For developers
 ### High Level Design
