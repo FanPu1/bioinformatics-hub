@@ -30,7 +30,7 @@ test ("test constructor with lowercase string input", () => {
 });
 
 /**
- * Test constructor method throw error when input string is invalid.
+ * Test constructor method throw error when input data type string is invalid.
  */
 test ("test constructor with lowercase string input", () => {
   expect(()=>{
@@ -39,7 +39,7 @@ test ("test constructor with lowercase string input", () => {
 });
 
 /**
- * Test validateAndSetDataType method return expected {string} of datatype.
+ * Test validateAndSetDataType method return expected {string} of data type.
  */
 test ("test validateAndSetDataType method", () => {
   const app = new BioinformaticsApp("DNA");
@@ -53,7 +53,7 @@ test ("test validateAndSetDataType method", () => {
 });
 
 /**
- * Test validateAndSetDataType method throw error when input String is invalid.
+ * Test validateAndSetDataType method throw error when input data type String is invalid.
  */
 test ("test validateAndSetDataType method with invalid input", () => {
   const app = new BioinformaticsApp("DNA");
@@ -71,4 +71,44 @@ test("test setFastaSequences returns expected object", () => {
   const fastaSeq = app.setFastaSequences(fastaSequencesString);
   expect(fastaSeq.dataType).toBe(DataType.PROTEIN);
   expect(fastaSeq.fastaSequencesString).toBe(fastaSequencesString );
+});
+
+/**
+ * test that an error is throw when the input string in setFastaSequences() method is a 
+ * null or undefined.
+ */
+test ("test input string for setFastaSequences method is a null or undefined", ()=>{
+  const app = new BioinformaticsApp("dna");
+  const fastaSequencesString1 = null; 
+  const fastaSequencesString2 = undefined;
+  let fastaSequencesString3;
+  expect (() => {
+    app.setFastaSequences(fastaSequencesString1);
+  }).toThrow("The input FASTA sequence cannot be null or undefined.");
+  expect (()=>{
+    app.setFastaSequences(fastaSequencesString2);
+  }).toThrow("The input FASTA sequence cannot be null or undefined.");
+  expect (()=>{
+    app.setFastaSequences(fastaSequencesString3);
+  }).toThrow("The input FASTA sequence cannot be null or undefined.");
+});
+
+/**
+ * test that an error is throw when the input string in setFastaSequences() method is a 
+ * blank or empty string.
+ */
+test ("test input string for setFastaSequences method is a blank string", ()=>{
+  const app = new BioinformaticsApp("protein");
+  const fastaSequencesString1 = ""; 
+  const fastaSequencesString2 = "    ";
+  const fastaSequencesString3 = " \n\r \t";
+  expect (()=>{
+    app.setFastaSequences(fastaSequencesString1);
+  }).toThrow("The input FASTA sequence cannot be emtyp or blank.");
+  expect (()=>{
+    app.setFastaSequences(fastaSequencesString2);
+  }).toThrow("The input FASTA sequence cannot be emtyp or blank.");
+  expect (()=>{
+    app.setFastaSequences(fastaSequencesString3);
+  }).toThrow("The input FASTA sequence cannot be emtyp or blank.");
 });

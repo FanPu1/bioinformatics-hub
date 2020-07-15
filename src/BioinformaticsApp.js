@@ -42,6 +42,14 @@ class BioinformaticsApp {
    * @returns {FastaSeq} object with its attributes, dataType and fastaSequencesString, being set. 
    */
   setFastaSequences(fastaSequencesString) {
+    // check if string is null, empty or blank
+    if (fastaSequencesString === null || fastaSequencesString === undefined) {
+      throw new Error ("The input FASTA sequence cannot be null or undefined.");
+    }
+    const trimedFastaSeq = fastaSequencesString.trim();
+    if (trimedFastaSeq.length === 0) {
+      throw new Error ("The input FASTA sequence cannot be emtyp or blank.");
+    }
     const fastaSeq = new FastaSeq(this.dataType, fastaSequencesString);
     this.fastaSequenceObject = fastaSeq;
     return fastaSeq;
