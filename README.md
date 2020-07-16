@@ -1,7 +1,19 @@
 # Bioinformatics-Hub
-This project is currently under development...
+This project is currently under development ...
 
-## For developers
+## How to this this package?
+### Basic usage example
+To do ...
+### Handle mulitple FASTA sequences
+https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp
+To do ...
+### Handle invalid input
+- invalid data type
+- invalid fasta sequences
+- invalid charactor
+- numbers inside of a string
+
+## For internal Bioinformatics-Hub developers
 ### High Level Design
 ![high level design](./design/image/high_level_design.png)
 ### Test

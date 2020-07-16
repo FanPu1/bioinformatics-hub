@@ -38,7 +38,7 @@ class FastaSeq {
       } else { // key is not available
         sequenceId = "Unnamed sequence " + unnamedSeqIndex;
         unnamedSeqIndex++;
-        if(lineArray[0].trim().charAt(0) !== ">") {
+        if(lineArray[0].trim().charAt(0) !== ">") { // line start ";" means comments, so ignored.
           sequence = sequence + lineArray[0].replace(/\s/g, ""); // the sequence start from the first line, so append it
         }
       }
@@ -47,6 +47,8 @@ class FastaSeq {
       for (let i = 1; i<lineArray.length; i++){
         sequence = sequence + lineArray[i].replace(/\s/g, "");
       }
+
+      // step clean up sequence before save it into my sequence map. Throw exception if the sequence is invalid.
 
       // Step 3: store sequenceId and sequence into a {sequenceId} object.
       const seqMapElement = {
