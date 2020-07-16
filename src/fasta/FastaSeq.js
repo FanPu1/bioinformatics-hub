@@ -34,7 +34,7 @@ class FastaSeq {
       // First line must start with ">" followed by sequence Id. Otherwize this fasta sequence unit 
       // do not have an id, and we want to give a id called "Unnamed sequence " + unnamedSeqIndex;
       if (lineArray[0].trim().charAt(0) === ">" && lineArray[0].trim().length > 1) { // key is available
-        sequenceId = lineArray[0].trim().substring(1);        
+        sequenceId = lineArray[0].trim().substring(1);     
       } else { // key is not available
         sequenceId = "Unnamed sequence " + unnamedSeqIndex;
         unnamedSeqIndex++;
@@ -62,12 +62,19 @@ class FastaSeq {
 
   /**
    * Gets all sequence Ids from the input FASTA string (file).
-   * @returns {array} an array of sequence Ids.
+   * @returns {Array} an array of sequence Ids.
    */
   getAllSequenceIds() {
     const sequenceIds = [];
     for (const key of this.seqMap.keys()) sequenceIds.push(key);
     return sequenceIds;
+  }
+
+  /**
+   * Returns {Integer} the number of individual sequences saved into the FastaSeq object.
+   */
+  size() {
+    return this.getAllSequenceIds().length;
   }
 }
 

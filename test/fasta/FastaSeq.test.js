@@ -52,5 +52,6 @@ test("test methods in FastSeq if input FASTA string is not blank or empty", () =
     
     // assert getAllsequenceId() method return all sequence Ids.
     expect(fastaSeqObj.getAllSequenceIds().sort()).toEqual(expectedSequenceIds.sort());
+    expect(fastaSeqObj.size()).toBe(3);
   });
 });
