@@ -51,7 +51,7 @@ class FastaSeq {
       // Step 3: store sequenceId and sequence into a {sequenceId} object.
       const seqMapElement = {
         sequenceId: sequenceId,
-        sequence: sequence,
+        sequence: sequence.toUpperCase(), // all sequences stored in upper case.
         outputMap: new Map(),
       };
       seqMap.set(sequenceId, seqMapElement);
@@ -68,6 +68,33 @@ class FastaSeq {
     const sequenceIds = [];
     for (const key of this.seqMap.keys()) sequenceIds.push(key);
     return sequenceIds;
+  }
+
+  /**
+   * Gets a specific FASTA sequence by its sequence Id.
+   * @param {String} sequenceId, the sequence Id to query.
+   * @returns {String} Fasta sequence (could be a empty string if fasta sequence only have title).
+   * @throws An Error if the sequnceId is not valid.
+   */
+  getSequenceById(sequenceId) {
+    const validSequenceIds = this.getAllSequenceIds();
+    if (validSequenceIds.includes(sequenceId)) {
+      return this.seqMap.get(sequenceId).sequence;
+    }
+    throw new Error("This sequence id is not valid. sequenceId= " + sequenceId);
+  }
+
+  /**
+   * Gets an object contains all sequences and their their sequences Ids. 
+   * For example: {"seqId1": "ATCGATC", "sequenceId3": "CCAAT", "unnamedSeqId": "AAAAG"}
+   * @returns {Object} contains all sequences indexed by its Id.
+   */
+  getAllSequencesWithIds(){
+    const sequencesByIds = {};
+    this.seqMap.forEach((value, key)=>{
+      sequencesByIds[key] = value.sequence;
+    });
+    return sequencesByIds;
   }
 
   /**

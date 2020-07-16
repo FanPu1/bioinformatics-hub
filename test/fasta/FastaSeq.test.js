@@ -50,8 +50,25 @@ test("test methods in FastSeq if input FASTA string is not blank or empty", () =
     const fastaSeqObj = app.setFastaSequences(fastaSequenceString);
     const expectedSequenceIds = ["Unnamed sequence 1", "Sample sequence 2", "Unnamed sequence 2"];
     
-    // assert getAllsequenceId() method return all sequence Ids.
+    // assert that getAllsequenceId() method returns all sequence Ids.
     expect(fastaSeqObj.getAllSequenceIds().sort()).toEqual(expectedSequenceIds.sort());
+
+    // assert that size() method returns 3.
     expect(fastaSeqObj.size()).toBe(3);
+
+    // assert getSequenceById(id) method returns expected sequence.
+    expect(fastaSeqObj.getSequenceById("Unnamed sequence 1")).toBe(unnamedSequence1);
+    expect(fastaSeqObj.getSequenceById("Unnamed sequence 2")).toBe(unnamedSequence2);
+    expect(fastaSeqObj.getSequenceById("Sample sequence 2")).toBe(sampleSequence2);
+    expect(()=>{
+      fastaSeqObj.getSequenceById("an invalid sequence id");
+    }).toThrow("This sequence id is not valid. sequenceId= " + "an invalid sequence id");
+
+    // assert getSequencesWithIds() method returns expected sequences using id as indeces. 
+    const expectedSequencesByIdsObjected = {};
+    expectedSequencesByIdsObjected["Unnamed sequence 1"] = unnamedSequence1;
+    expectedSequencesByIdsObjected["Unnamed sequence 2"] = unnamedSequence2;
+    expectedSequencesByIdsObjected["Sample sequence 2"] = sampleSequence2;
+    expect(fastaSeqObj.getAllSequencesWithIds()).toEqual(expectedSequencesByIdsObjected);
   });
 });
