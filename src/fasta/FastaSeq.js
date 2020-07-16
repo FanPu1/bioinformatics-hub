@@ -1,3 +1,5 @@
+const cleanup = require("../util/cleanUpString");
+
 class FastaSeq {
   /**
    * Constructor for FastaSeq class. 
@@ -38,7 +40,7 @@ class FastaSeq {
       } else { // key is not available
         sequenceId = "Unnamed sequence " + unnamedSeqIndex;
         unnamedSeqIndex++;
-        if(lineArray[0].trim().charAt(0) !== ">") {
+        if(lineArray[0].trim().charAt(0) !== ">") { // line start ";" means comments, so ignored.
           sequence = sequence + lineArray[0].replace(/\s/g, ""); // the sequence start from the first line, so append it
         }
       }
@@ -48,10 +50,13 @@ class FastaSeq {
         sequence = sequence + lineArray[i].replace(/\s/g, "");
       }
 
-      // Step 3: store sequenceId and sequence into a {sequenceId} object.
+      // step 3 clean up sequence before save it into my sequence map. Throw exception if the sequence is invalid.
+      sequence = cleanup(sequence).toUpperCase();
+      
+      // Step 4: store sequenceId and sequence into a {sequenceId} object.
       const seqMapElement = {
         sequenceId: sequenceId,
-        sequence: sequence.toUpperCase(), // all sequences stored in upper case.
+        sequence: sequence,
         outputMap: new Map(),
       };
       seqMap.set(sequenceId, seqMapElement);
