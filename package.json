@@ -9,6 +9,11 @@
     "lint": "npx eslint .",
     "lint-fix": "npx eslint . --fix"
   },
+  "jest": {
+    "modulePaths": [
+      "<rootDir>"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FanPu1/bioinformatics-hub.git"
