@@ -1,4 +1,5 @@
 const cleanup = require("../util/cleanUpString");
+const CommentLineRemover = require("../util/CommentLineRemover");
 
 class FastaSeq {
   /**
@@ -21,8 +22,12 @@ class FastaSeq {
   covertSeqToMap() {
     // Step 1: store each indivalue fasta sequence in to a fasta sequence unit array (fastaUnitArray). 
     const seqMap = new Map();
+    // remove commentline from this string. The comment line in FASTA file start with ";"
+    const commentRemover = new CommentLineRemover();
+    const fastaSequecnesStringNoCommentLine = commentRemover.removeCommentLine(this.fastaSequencesString);
+
     // split String by ">", and keep >
-    const fastaUnitArray = this.fastaSequencesString.trim().split(/(?=>)/g);
+    const fastaUnitArray = fastaSequecnesStringNoCommentLine.trim().split(/(?=>)/g);
     // prepare index for unnamed sequences
     let unnamedSeqIndex = 1;
 
