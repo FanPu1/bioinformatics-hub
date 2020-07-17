@@ -9,3 +9,19 @@
  * @throws Error if the sequence (after numbers and blanks are removed) contains characters
  * other than A-Z, a-z, "*", "-".
  */
+function cleanup(string) {
+  // step 1: Remove numbers and blanks
+  let outputString = string.replace(/\d|\s/g, "");
+  // step 2: Check if the output string is empty.
+  if (!outputString || outputString.length === 0) {
+    throw new Error("Invalid sequence: " + string);
+  }
+  // Step 3: If the output string not only contains letters, "*", or "-", then thrown a expection
+  const expectedRegExp = new RegExp("[^a-zA-Z-*]");
+  if (expectedRegExp.test(outputString)) {
+    throw new Error("Sequence contains invalid characters. Sequence: " + string);
+  }
+  return outputString;
+}
+
+module.exports = cleanup;
