@@ -1,5 +1,5 @@
 const fs = require("fs");
-const BioinformaticsApp = require("../index");
+const BioinformaticsApp = require("./../index");
 
 /**
  * Test the following workflow: 
@@ -14,7 +14,7 @@ fs.readFile("./seeds/fastaDNASequence1.txt", (err, data) => { // read fasta sequ
     // integration test start here
     const fastaSequenceString = data.toString(); 
     const app = new BioinformaticsApp("dna");
-    const fastaSeqObj = app.setFastaSequences(fastaSequenceString);
+    const fastaSeqObj = app.setFastaSequences(fastaSequenceString).getFastaSequenceObject();
     let log;
 
     // you can use console log to check if the object is setup correctly.

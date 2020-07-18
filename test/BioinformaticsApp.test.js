@@ -1,5 +1,7 @@
 const BioinformaticsApp = require("./../index");
-const DataType = require("../src/constants/DataType");
+const DataType = require("./../src/constants/DataType");
+const FastaSeq = require("./../src/fasta/FastaSeq");
+const PredictionAssistant = require("./../src/fasta/predictionAssistant/PredictionAssistant");
 
 /**
  * Test constructor method can set dataType attributes properly
@@ -63,14 +65,14 @@ test ("test validateAndSetDataType method with invalid input", () => {
 });
 
 /**
- * Test that setFastaSequences returns expected {FastaSeq} object.
+ * Test that setFastaSequences returns expected object.
  */
 test("test setFastaSequences returns expected object", () => {
   const app = new BioinformaticsApp("protein");
   const fastaSequencesString = ">fake sequence1 \nDKDGNGY\nDKDGNGY >sequence2\nGGGGNGY"; 
-  const fastaSeq = app.setFastaSequences(fastaSequencesString);
-  expect(fastaSeq.dataType).toBe(DataType.PROTEIN);
-  expect(fastaSeq.fastaSequencesString).toBe(fastaSequencesString );
+  app.setFastaSequences(fastaSequencesString);
+  expect(app.dataType).toBe(DataType.PROTEIN);
+  expect(app.getFastaSequenceObject().fastaSequencesString).toBe(fastaSequencesString);
 });
 
 /**
@@ -111,4 +113,17 @@ test ("test input string for setFastaSequences method is a blank string", ()=>{
   expect (()=>{
     app.setFastaSequences(fastaSequencesString3);
   }).toThrow("The input FASTA sequence cannot be emtyp or blank.");
+});
+
+/**
+ * Test different conditions in getPreditionAssistant method.
+ */
+test("test getPredictionAssistant method", ()=>{
+  const app = new BioinformaticsApp("protein");
+  const expectedFastaSequenceObject = new FastaSeq(DataType.PROTEIN, "DKDGNGY");
+  const expectedPredictionAssistant = new PredictionAssistant(expectedFastaSequenceObject);
+  expect(()=>{
+    app.getPredictionAssistant();
+  }).toThrow("No FASTA sequence. call setFastaSequences(fastaString) first.");
+  expect(app.setFastaSequences("DKDGNGY").getPredictionAssistant()).toEqual(expectedPredictionAssistant);
 });

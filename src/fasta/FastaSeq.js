@@ -1,5 +1,5 @@
-const cleanup = require("../util/cleanUpString");
-const CommentLineRemover = require("../util/CommentLineRemover");
+const cleanup = require("./../util/cleanUpString");
+const CommentLineRemover = require("./../util/CommentLineRemover");
 
 class FastaSeq {
   /**

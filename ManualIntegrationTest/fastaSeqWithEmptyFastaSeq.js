@@ -1,4 +1,4 @@
-const BioinformaticsApp = require("../index");
+const BioinformaticsApp = require("./../index");
 
 /**
  * Test the following workflow: 

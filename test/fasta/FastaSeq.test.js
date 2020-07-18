@@ -14,7 +14,7 @@ test("test FastaSeq constructor and its attributes", () => {
   fs.readFile("./seeds/fastaDNASequence1.txt", (err, data) => {
     const fastaSequenceString = data.toString(); 
     const app = new BioinformaticsApp("dna");
-    const fastaSeq = app.setFastaSequences(fastaSequenceString);
+    const fastaSeq = app.setFastaSequences(fastaSequenceString).getFastaSequenceObject();
     
     // assert data type
     expect(fastaSeq.dataType).toBe(DataType.DNA);
@@ -47,7 +47,7 @@ test("test methods in FastSeq if input FASTA string is not blank or empty", () =
   fs.readFile("./seeds/fastaDNASequence1.txt", (err, data) => {
     const fastaSequenceString = data.toString(); 
     const app = new BioinformaticsApp("dna");
-    const fastaSeqObj = app.setFastaSequences(fastaSequenceString);
+    const fastaSeqObj = app.setFastaSequences(fastaSequenceString).getFastaSequenceObject();
     const expectedSequenceIds = ["Unnamed sequence 1", "Sample sequence 2", "Unnamed sequence 2"];
     
     // assert that getAllsequenceId() method returns all sequence Ids.
@@ -100,7 +100,6 @@ test ("Test that the sequence do no contains any sequenceId.", ()=>{
   const expectedSequenceId = "Unnamed sequence 1";
   const expectedSequenceAfterCleanUp = "DKDGNGYDKDKCTGAC";
   const app = new BioinformaticsApp("protein");
-  const fastaSeqObject = app.setFastaSequences   ( inputSeq );
+  const fastaSeqObject = app.setFastaSequences(inputSeq).getFastaSequenceObject();
   expect(fastaSeqObject.getSequenceById(expectedSequenceId)).toBe(expectedSequenceAfterCleanUp);
 });
-

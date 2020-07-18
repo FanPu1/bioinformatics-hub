@@ -1,5 +1,6 @@
 const DataType = require("./constants/DataType");
 const FastaSeq = require("./fasta/FastaSeq");
+const PredictionAssistant = require("./fasta/predictionAssistant/PredictionAssistant");
 
 class BioinformaticsApp {
   
@@ -39,7 +40,7 @@ class BioinformaticsApp {
   /**
    * Sets the {FastaSeq} fastaSequenceObject attribute for {BioinformaticsApp}.
    * @param {string} fastaSequencesString 
-   * @returns {FastaSeq} object with its attributes, dataType and fastaSequencesString, being set. 
+   * @returns The {BioinformaticsApp} object.
    */
   setFastaSequences(fastaSequencesString) {
     // check if string is null, empty or blank
@@ -52,7 +53,25 @@ class BioinformaticsApp {
     }
     const fastaSeq = new FastaSeq(this.dataType, fastaSequencesString);
     this.fastaSequenceObject = fastaSeq;
-    return fastaSeq;
+    return this;
+  }
+
+  /**
+   * Gets the fastaSequenceObject in this class.
+   */
+  getFastaSequenceObject(){
+    return this.fastaSequenceObject;
+  }
+
+  /**
+   * Retrives a {PredictionAssistant} object with {FastaSeq} being set. 
+   * @throws an error if {FastaSeq} in {BioinformaticsApp} object is null.
+   */
+  getPredictionAssistant(){
+    if (!this.fastaSequenceObject) {
+      throw new Error ("No FASTA sequence. call setFastaSequences(fastaString) first.");
+    }
+    return new PredictionAssistant(this.fastaSequenceObject);
   }
 }
 
