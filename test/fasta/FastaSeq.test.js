@@ -62,7 +62,7 @@ test("test methods in FastSeq if input FASTA string is not blank or empty", () =
     expect(fastaSeqObj.getSequenceById("Sample sequence 2")).toBe(sampleSequence2);
     expect(()=>{
       fastaSeqObj.getSequenceById("an invalid sequence id");
-    }).toThrow("This sequence id is not valid. sequenceId= " + "an invalid sequence id");
+    }).toThrow("This sequence id is not valid. sequenceId = " + "an invalid sequence id");
 
     // assert getSequencesWithIds() method returns expected sequences using id as indeces. 
     const expectedSequencesByIdsObjected = {};
@@ -72,3 +72,35 @@ test("test methods in FastSeq if input FASTA string is not blank or empty", () =
     expect(fastaSeqObj.getAllSequencesWithIds()).toEqual(expectedSequencesByIdsObjected);
   });
 });
+
+/**
+ * Test unnamed FASTA sequence starting with >.
+ */
+test("test unnamed FASTA sequence and related methods", ()=>{
+  const inputSequence = ">    \n ATATATA";
+  const expectedSequenceId = "Unnamed sequence 1";
+  const expectedSequenceAfterCleanUp = "ATATATA";
+  const app = new BioinformaticsApp("DNA");
+  app.setFastaSequences(inputSequence);
+  expect(app.fastaSequenceObject.fastaSequencesString).toEqual(inputSequence);
+  expect(app.fastaSequenceObject.getAllSequenceIds()).toEqual([expectedSequenceId]);
+  expect(app.fastaSequenceObject.getSequenceById(expectedSequenceId)).toEqual(expectedSequenceAfterCleanUp);
+  expect(app.fastaSequenceObject.size()).toEqual(1);
+  expect(app.fastaSequenceObject.getAllSequencesWithIds()[expectedSequenceId]).toBe(expectedSequenceAfterCleanUp);
+  expect(()=>{
+    app.fastaSequenceObject.getSequenceById("ABCD");
+  }).toThrow("This sequence id is not valid. sequenceId = ABCD");
+});
+
+/**
+ * Test that the sequence do no contains any sequenceId.
+ */
+test ("Test that the sequence do no contains any sequenceId.", ()=>{
+  const inputSeq = "DKDGNGY\r\nDKDKCTGAC";
+  const expectedSequenceId = "Unnamed sequence 1";
+  const expectedSequenceAfterCleanUp = "DKDGNGYDKDKCTGAC";
+  const app = new BioinformaticsApp("protein");
+  const fastaSeqObject = app.setFastaSequences   ( inputSeq );
+  expect(fastaSeqObject.getSequenceById(expectedSequenceId)).toBe(expectedSequenceAfterCleanUp);
+});
+

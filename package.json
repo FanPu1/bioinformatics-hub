@@ -4,7 +4,7 @@
   "description": "An bioinformatics tool to predict and analyze DNA, RNA or protein sequences.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "start": "node index.js",
     "lint": "npx eslint .",
     "lint-fix": "npx eslint . --fix"

@@ -91,7 +91,7 @@ class FastaSeq {
     if (validSequenceIds.includes(sequenceId)) {
       return this.seqMap.get(sequenceId).sequence;
     }
-    throw new Error("This sequence id is not valid. sequenceId= " + sequenceId);
+    throw new Error("This sequence id is not valid. sequenceId = " + sequenceId);
   }
 
   /**
