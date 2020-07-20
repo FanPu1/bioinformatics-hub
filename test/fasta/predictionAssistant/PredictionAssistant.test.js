@@ -1,5 +1,6 @@
 const PredictionAssistant = require("./../../../src/fasta/predictionAssistant/PredictionAssistant");
 const FastaSeq = require("./../../../src/fasta/FastaSeq");
+const BioinformaticsApp = require("./../../../index");
 
 /**
  * Test constructor method.
@@ -29,6 +30,7 @@ test("test translatePatternString(string) method", ()=>{
   const patternMap = assistant.patternsWithIds;
   expect(patternMap.keys().next().value).toEqual(expectedPatternId);
   expect(patternMap.get(expectedPatternId).pattern).toEqual(expectedPattern);
+  expect(patternMap.get(expectedPatternId).originalPattern).toEqual(inputPatternString);
   expect(patternMap.get(expectedPatternId).description).toEqual(expectedDescription);
   expect(patternMap.get(expectedPatternId).url).toEqual(expectedUrl);
 
@@ -72,6 +74,7 @@ test("test translatePatternArray(string) method", ()=>{
   assistant.setPatterns(inputPatternArray);
   let patternMap = assistant.patternsWithIds;
   expect(patternMap.size).toBe(2);
+  expect(patternMap.get(expectedPatternId1).originalPattern).toEqual(inputPatternArray[0]);
   expect(patternMap.get(expectedPatternId1).pattern).toEqual(expectedPattern1);
   expect(patternMap.get(expectedPatternId1).description).toEqual(expectedDescription);
   expect(patternMap.get(expectedPatternId1).url).toEqual(expectedUrl);
@@ -127,6 +130,7 @@ test("test translatePatternObject(string) method", ()=>{
   let patternMap = assistant.patternsWithIds;
   expect(patternMap.size).toBe(2);
   expect(patternMap.get(expectedPatternId1).pattern).toEqual(expectedPattern1);
+  expect(patternMap.get(expectedPatternId1).originalPattern).toEqual("[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]-[DNQGHRK]-{GP}-[LIVMC]-[DENQSTAGC]-x(2)-[ED]");
   expect(patternMap.get(expectedPatternId1).description).toEqual("This is a description");
   expect(patternMap.get(expectedPatternId1).url).toEqual("www.test.io");
   expect(patternMap.get(expectedPatternId2).pattern).toEqual(expectedPattern2);
@@ -179,4 +183,39 @@ test("test setPatterns(patterns) method throw error when input is invalid null o
   expect(()=>{
     assistant.setPatterns(inputPatterns2);
   }).toThrow("The format of input patterns is not supported.");
+});
+
+/**
+ * Test predict() method.
+ */
+test("test translatePatternObject(string) method", ()=>{
+  let inputPatternObject = {
+    "pattern1": {
+      pattern: "[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]",
+      description: "This is a description",
+      url: "www.test.io"
+    }, 
+    "pattern2": "<[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]"
+  };
+  
+  const app = new BioinformaticsApp("protein").setFastaSequences(">seq_id_1 \n DDDKEGGDDDKD \n >seq_id_2 \n TTTTTTT");
+  const predictionOutput = app.getPredictionAssistant().setPatterns(inputPatternObject).predict();
+  expect(predictionOutput.length).toBe(2);
+  // assert prediction for seq_id_1
+  expect(predictionOutput[0].sequenceId).toBe("seq_id_1");
+  expect(predictionOutput[0].sequence).toBe("DDDKEGGDDDKD");
+  expect(predictionOutput[0].contained_motifs).toEqual(["pattern1", "pattern2"]);
+  let outputMotifs= predictionOutput[0].motifs;
+  expect(Object.keys(outputMotifs)).toEqual(["pattern1", "pattern2"]);
+  expect(outputMotifs.pattern1.pattern_signiture).toEqual("[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]");
+  expect(outputMotifs.pattern1.description).toEqual("This is a description");
+  expect(outputMotifs.pattern1.url).toEqual("www.test.io");
+  expect(outputMotifs.pattern1.matched_sequences.length).toBe(2);
+  expect(outputMotifs.pattern1.matched_sequences[0]).toEqual({ startIndex: 0, matched_sequence: "DDDKE" });
+  expect(outputMotifs.pattern1.matched_sequences[1]).toEqual({ startIndex: 7, matched_sequence: "DDDKD" });
+  // assert prediction for seq_id_2
+  expect(predictionOutput[1].sequenceId).toBe("seq_id_2");
+  expect(predictionOutput[1].sequence).toBe("TTTTTTT");
+  expect(predictionOutput[1].contained_motifs).toEqual([]);
+  console.log(predictionOutput[0].motifs.pattern1);
 });

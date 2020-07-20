@@ -1,4 +1,5 @@
 const convertPatternToRegExp = require("../../util/patternConverter");
+const PatternFinder = require("./PatternFinder");
 
 /**
  * A class contains all methods related with the output of sequence prediction.
@@ -87,6 +88,7 @@ class PredictionAssistant {
     const patternId = stringPattern; // patternId is same as input string
     const patternInfo= {
       "pattern": convertPatternToRegExp(stringPattern),
+      "originalPattern": stringPattern,
       "description": null,
       "url": null
     };
@@ -120,6 +122,7 @@ class PredictionAssistant {
       if (typeof patternObject[key] === "string") {
         const patternInfo = {
           "pattern": convertPatternToRegExp(patternObject[key]),
+          "originalPattern": patternObject[key],
           "description": null,
           "url": null
         };
@@ -128,6 +131,7 @@ class PredictionAssistant {
         const value = patternObject[key];
         const patternInfo = {
           "pattern": convertPatternToRegExp(value.pattern),
+          "originalPattern": value.pattern,
           "description": value.description,
           "url": value.url
         };
@@ -157,6 +161,7 @@ class PredictionAssistant {
       const patternId = patternString;
       const patternInfo = {
         "pattern": convertPatternToRegExp(patternString),
+        "originalPattern": patternString,
         "description": null,
         "url": null
       };
@@ -165,6 +170,108 @@ class PredictionAssistant {
 
     return outputPatternMap;
   }
-}
 
+  /**
+   * Predict/find the motifs based on pattern search for the input FASTA sequences.
+   * Read instructions on https://github.com/accliu/Nerds_pockets/projects/1 on
+   * how to use this method correctly.
+   * @returns the prediction results along with the fasta sequence Ids, fasta sequences,
+   * pattern(motif) name, pattern signiture, and prediction result. Example:
+   * [
+   *    {
+   *        sequenceId: "fake sequence Id 1",
+   *        sequence: "DKSKKDKDKDDSKSDKSDKSDK......",
+   *        contained_motifs: ["ef-hand"]
+   *        motifs: 
+   *        {
+   *            "ef-hand": 
+   *            {
+   *                pattern_signiture: "[D]-x-[D,E]-x-[D,E]",
+   *                matched_sequences: [{starting_index: 23, sequence: "DKDGE"}, {starting_index: 55, sequence: "DSEKD"}]
+   *            },
+   *            "zink-finger": 
+   *            {
+   *                pattern_signiture: "[C]-x-[C]-x-[C]",
+   *                matched_sequences: [],
+   *                discription: "description of zink finger",
+   *                url: "www.fakeurl.com"
+   *            } 
+   *        }
+   *    }, 
+   *    {
+   *        sequenceId: "fake sequence Id 2",
+   *        sequence: "PPPPPPPIIIIKKKDRGD",
+   *        contained_motifs: []
+   *        motifs: 
+   *        {
+   *            "ef-hand": 
+   *            {
+   *                pattern_signiture: "[D]-x-[D,E]-x-[D,E]",
+   *                matched_sequences: []
+   *            },
+   *            "zink-fingure": 
+   *            {
+   *                pattern_signiture: "[C]-x-[C]-x-[C]",
+   *                matched_sequences: []
+   *            } 
+   *        }
+   *    }, 
+   * ]
+   * @throws error if FASTA sequence is fastaSequenceObject or patternsWithIds in {PredictionAssistant} object is null or not defined.
+   */
+  predict(){
+    if (!this.fastaSequenceObject) {throw new Error("FASTA sequence is not setup properly.");}
+    if (!this.patternsWithIds) {throw new Error("Motif (pattern) is not setup properly");}
+    const predictionResultArray = [];
+
+    // retrive FASTA sequences Ids from fastaSequenceObject and stored in an array.
+    const fastaSeqIdArray = this.fastaSequenceObject.getAllSequenceIds();
+    // retrive Pattern Ids from {PatternMap} stored in patternsWithIds.
+    const patternIdArray = [...this.patternsWithIds.keys()];
+    if (fastaSeqIdArray.length && patternIdArray.length) {
+      // loop through each sequence Ids 
+      for (let sequenceId of fastaSeqIdArray){
+        // extract sequence by sequenceId
+        const sequence = this.fastaSequenceObject.getSequenceById(sequenceId);
+        const predictionResult = {};
+        // store sequenceId and sequence into predictionResult object 
+        predictionResult.sequenceId = sequenceId;
+        predictionResult.sequence = sequence;
+        predictionResult.contained_motifs = [];
+        predictionResult.motifs = {};
+
+        // loop through patternIds and predict the presence of each motif against sequence. 
+        for (let patternId of patternIdArray) {
+          //retrieve motif pattern (signiture), desription, and reference url
+          const pattern = this.patternsWithIds.get(patternId).pattern;
+          const originalPattern = this.patternsWithIds.get(patternId).originalPattern;
+          const description = this.patternsWithIds.get(patternId).description;
+          const url = this.patternsWithIds.get(patternId).url;
+          // save patternId key and pattern signiture into predictionResult.motifs
+          predictionResult.motifs[patternId] = {};
+          predictionResult.motifs[patternId].pattern_signiture = originalPattern;
+          predictionResult.motifs[patternId].matched_sequences = [];
+          // if desciption and url are not null or defined, save these information as part of 
+          // motif information as well.
+          if (description != null || description != undefined) {
+            predictionResult.motifs[patternId].description = description;
+          }
+          if (url !== null || description != undefined) {
+            predictionResult.motifs[patternId].url = url;
+          }
+          // scan this pattern (motif signiture) against sequence, 
+          // if there is pattern match, then push the pattern id to predictionResult.contained_motifs array.
+          const finder = new PatternFinder();
+          if(finder.containPattern(pattern, sequence)) {
+            predictionResult.contained_motifs.push(patternId);
+            // also add prediction results to predictionResult.motifs[patternId].matched_sequences. 
+            predictionResult.motifs[patternId].matched_sequences = finder.getMatchedSequences(pattern, sequence);
+          }
+        }
+        predictionResultArray.push(predictionResult);
+      }
+    }
+    return predictionResultArray;
+  }
+}
 module.exports = PredictionAssistant;

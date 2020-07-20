@@ -41,7 +41,6 @@ fs.readFile("./seeds/fastaDNASequence1.txt", (err, data) => { // read fasta sequ
     // check getSequencesWithIds() method
     // log = fastaSeqObj.getAllSequencesWithIds();
     console.log(log);
-
   }
 });
 
