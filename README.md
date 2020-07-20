@@ -1,17 +1,47 @@
 # Bioinformatics-Hub
-This project is currently under development ...
+This is an open source project used for protein and nucleotide analysis and prediction. At the current stage, this package can perform analysis and prediction based on mutiple protein or nucleotide sequences in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format. We will add pdb analysis in the future.
 
-## How to this this package?
+In version 1.x.x, this application can: 
+- Read multiple protein or nucleotide sequences.
+- Remove any numbers, blanks, and comment line (line start with ";") in each sequence.
+- Retrieve a specific sequence by squenceId.
+- Retrieve all sequence Ids.
+- Retrieve all sequences as javascript object indexed by sequence Ids.
+- Scan and predict protein/nucleotide motifs in multiple sequences provided by user in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format.
+
+## How to use this package
+### Installation
+Running this package requires nodeJS environment. Run the below commend to install this package into your project.
+```
+npm install --save bioinformatics-hub
+```
 ### Basic usage example
-To do ...
+To be updated ...
+
 ### Handle mulitple FASTA sequences
+To be updated ...
+
+### Prediction protein/nucleotide motifs
+To be updated
+
+
 https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp
-To do ...
 ### Handle invalid input
 - invalid data type
 - invalid fasta sequences
 - invalid charactor
 - numbers inside of a string
+
+## Version changes
+- 1.0.x
+  - in progress.
+- 1.0.0
+  - Read multiple protein or nucleotide sequences.
+  - Remove any numbers, blanks, and comment line (line start with ";") in each sequence.
+  - Retrieve a specific sequence by squenceId.
+  - Retrieve all sequence Ids.
+  - Retrieve all sequences as javascript object indexed by sequence Ids.
+  - Scan and predict protein/nucleotide motifs in multiple sequences provided by user in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format.
 
 ## For internal Bioinformatics-Hub developers
 ### High Level Design
