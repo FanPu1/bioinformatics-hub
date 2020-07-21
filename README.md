@@ -11,12 +11,13 @@ In version 1.x.x, this application can:
 
 ## How to use this package
 ### Installation
-Running this package requires nodeJS environment. Run the below commend to install this package into your project.
+Running this package requires [nodeJS](https://nodejs.org/en/) environment. Run the below commend to install this package into your project.
 ```
 npm install --save bioinformatics-hub
 ```
 ### Basic usage example
-To be updated ...
+#### Read sequences with FASTA format
+#### Read a single DNA or nucleotide sequence 
 
 ### Handle mulitple FASTA sequences
 To be updated ...

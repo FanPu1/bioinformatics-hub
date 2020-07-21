@@ -73,6 +73,34 @@ class BioinformaticsApp {
     }
     return new PredictionAssistant(this.fastaSequenceObject);
   }
+
+  /**
+   * Gets all sequence Ids from the input FASTA string (file).
+   * @returns {Array} an array of sequence Ids.
+   */
+  getAllSequenceIds() {
+    return this.fastaSequenceObject.getAllSequenceIds();
+  }
+
+  /**
+   * Gets a specific FASTA sequence by its sequence Id.
+   * @param {String} sequenceId, the sequence Id to query.
+   * @returns {String} Fasta sequence (could be a empty string if fasta sequence only have title).
+   * @throws An Error if the sequnceId is not valid.
+   */
+  getSequenceById(sequenceId) {
+    return this.fastaSequenceObject.getSequenceById(sequenceId);
+  }
+
+  /**
+   * Gets an object contains all sequences and their their sequences Ids. 
+   * For example: {"seqId1": "ATCGATC", "sequenceId3": "CCAAT", "unnamedSeqId": "AAAAG"}
+   * @returns {Object} contains all sequences indexed by its Id.
+   */
+  getAllSequencesWithIds(){
+    return this.fastaSequenceObject.getAllSequencesWithIds();
+  }
+
 }
 
 module.exports = BioinformaticsApp;

@@ -73,6 +73,10 @@ test("test setFastaSequences returns expected object", () => {
   app.setFastaSequences(fastaSequencesString);
   expect(app.dataType).toBe(DataType.PROTEIN);
   expect(app.getFastaSequenceObject().fastaSequencesString).toBe(fastaSequencesString);
+  expect(app.getAllSequenceIds()).toEqual(["fake sequence1","sequence2"]);
+  expect(app.getSequenceById("fake sequence1")).toEqual("DKDGNGYDKDGNGY");
+  expect(app.getAllSequencesWithIds()["fake sequence1"]).toEqual("DKDGNGYDKDGNGY");
+  expect(app.getAllSequencesWithIds()["sequence2"]).toEqual("GGGGNGY");
 });
 
 /**
