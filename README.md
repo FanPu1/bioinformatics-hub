@@ -16,7 +16,45 @@ Running this package requires [nodeJS](https://nodejs.org/en/) environment. Run 
 npm install --save bioinformatics-hub
 ```
 ### Basic usage example
-#### Read sequences with FASTA format
+
+#### Sample sequences in this demo: 
+```
+>sequence_id_1
+SLLKASSTLDNLFKELDKNGDGEVSYEEF
+>sequence_id_2
+DKDKD
+```
+#### Setup bioinformaticsHub object
+Import "bioinformatics-hub" package and create a bioinformaticsHub object:
+```
+const BioinformaticsHub = require("bioinformatics-hub");
+const bioInformaticsHub = new BioinformaticsHub("protein"); // input can be "DNA", "RNA", "protein", "pdb"
+```
+Save the sequences into bioinformaticsHub object:
+```
+const inputSequence = ">sequence_id_1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF\n>sequence_id_2\r\n DKDKD";
+bioInformaticsHub.setFastaSequences(inputSequence); 
+```
+Now, bioinformaticsHub setup is ready and user can use bioinformaticsHub to retrieve sequence Ids and sequences and perform sequence analysis, such as predicting motifs in these sequences.
+
+#### Retrieve all sequence Ids of input sequence: 
+```
+const sequenceIdArray = bioInformaticsHub.getAllSequenceIds();
+console.log(sequenceIdArray); // [ 'sequence_id_1', 'sequence_id_2' ]
+```
+#### Retrieve a specifc sequence by sequence Id:
+```
+const sequence1 = bioInformaticsHub.getSequenceById("sequence_id_1"); 
+console.log(sequence1); // "SLLKASSTLDNLFKELDKNGDGEVSYEEFF"
+const sequence2 = bioInformaticsHub.getSequenceById("sequence_id_2"); 
+console.log(sequence2); // "DKDKD"
+```
+#### Retrive all sequences with Ids from the input sequence and return as a javascript object:
+```
+const sequencesWithIds = bioInformaticsHub.getAllSequencesWithIds(); 
+console.log(sequencesWithIds); // outout is shown in the next line.
+// { sequence_id_1: 'SLLKASSTLDNLFKELDKNGDGEVSYEEF', sequence_id_2: 'DKDKD' }
+```
 #### Read a single DNA or nucleotide sequence 
 
 ### Handle mulitple FASTA sequences
