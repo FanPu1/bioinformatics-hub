@@ -2,12 +2,12 @@
 This is an open source project used for protein and nucleotide analysis and prediction. At the current stage, this package can perform analysis and prediction based on mutiple protein or nucleotide sequences in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format. We will add pdb analysis in the future.
 
 In version 1.1.x, this application can: 
-- Read multiple protein or nucleotide sequences.
-- Remove any numbers, blanks, and comment line (line start with ";") in each sequence.
-- Retrieve a specific sequence by squenceId.
-- Retrieve all sequence Ids.
-- Retrieve all sequences as javascript object indexed by sequence Ids.
-- Scan and predict protein/nucleotide motifs in multiple sequences provided by user in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format.
+- [Read multiple protein or nucleotide sequences as a single string](#step-2-set-up-the-sequences-into-bioinformaticshub-object),
+- [Remove any numbers, blanks, and comment line (line start with ";") in each sequence](#handle-comment-line-numbers-gaps-blanks-and-comment-lines),
+- [Retrieve a specific sequence by squenceId](#retrieve-a-specifc-sequence-by-sequence-id),
+- [Retrieve all sequence Ids](#retrieve-all-sequence-ids-of-input-sequence),
+- [Retrieve all sequences as javascript object indexed by sequence Ids](#retrive-all-sequences-with-ids-from-the-input-sequence-and-return-as-a-javascript-object),
+- [Scan and predict user-defined protein/nucleotide motifs in multiple sequences](#predict-motifs-in-protein-or-nucleotide-sequences).
 
 ## How to use this package
 ### Installation
@@ -156,10 +156,19 @@ This application has build in functions to validate and clean up the input seque
   >sequence 2
   AAAATTTAAAATTT
   ```
+  It is invalid to have two sequences with the identical sequence Id.
 
 - Invalid charactor
   
-  The sequence Id can have any charactors. The sequence should only contain letters a-z, A-Z, "-" (gap) and * (termination). 
+  The sequence Id can contain any charactors. The sequence should only contain letters a-z, A-Z, "-" (gap) and * (termination). 
+
+- Single sequence without a sequence Id
+
+  A single sequence wihtout a sequence Id is a valid input sequence. This application will automatically add "Unamed sequence 1" as its sequence Id.
+
+- The first sequence in multiple sequences do not have a sequence Id
+
+  If the first sequence in multiple sequences do not have a sequence Id, this application will automatically add "Unamed sequence 1" as its sequence Id.
 
 - Numbers in sequences
 
