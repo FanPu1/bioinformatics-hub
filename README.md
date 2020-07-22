@@ -9,13 +9,12 @@ In version 1.1.x, this application can:
 - [Retrieve all sequences as javascript object indexed by sequence Ids](#retrive-all-sequences-with-ids-from-the-input-sequence-and-return-as-a-javascript-object),
 - [Scan and predict user-defined protein/nucleotide motifs in multiple sequences](#predict-motifs-in-protein-or-nucleotide-sequences).
 
-## How to use this package
-### Installation
+## Installation
 Running this package requires [nodeJS](https://nodejs.org/en/) environment. Run the below commend to install this package into your project.
 ```
 npm install --save bioinformatics-hub
 ```
-### Basic usage example
+## Basic usage examples
 
 Sample sequences for this demo: 
 ```
@@ -25,7 +24,7 @@ SLLKASSTLDNLFKELDKNGDGEVSYEEF
 DKDKD
 ```
 This application can handle one sequence or mutiple sequences.
-#### Setup bioinformaticsHub object
+### Setup bioinformaticsHub object
 ##### Step 1: Import "bioinformatics-hub" package and create a bioinformaticsHub object.
 ```
 const BioinformaticsHub = require("bioinformatics-hub");
@@ -44,13 +43,13 @@ bioInformaticsHub.setFastaSequences(inputSequence);
 ```
 Now, the bioinformaticsHub setup is completed, and user can use bioinformaticsHub to retrieve sequence Ids and sequences. User can also use bioinformaticsHub to perform sequence analysis, such as predicting motifs in these sequences.
 
-##### Retrieve all sequence Ids of input sequence: 
+### Retrieve all sequence Ids of input sequence: 
 ```
 const sequenceIdArray = bioInformaticsHub.getAllSequenceIds();
 console.log(sequenceIdArray); 
 // Console output: [ 'sequence_id_1', 'sequence_id_2' ]
 ```
-##### Retrieve a specifc sequence by sequence Id:
+### Retrieve a specifc sequence by sequence Id:
 ```
 const sequence1 = bioInformaticsHub.getSequenceById("sequence_id_1"); 
 console.log(sequence1); 
@@ -60,7 +59,7 @@ const sequence2 = bioInformaticsHub.getSequenceById("sequence_id_2");
 console.log(sequence2); 
 // console output: DKDKD
 ```
-##### Retrive all sequences with Ids from the input sequence and return as a javascript object:
+### Retrive all sequences with Ids from the input sequence and return as a javascript object:
 ```
 const sequencesWithIds = bioInformaticsHub.getAllSequencesWithIds(); 
 console.log(sequencesWithIds); 
@@ -72,10 +71,10 @@ console output:
   sequence_id_2: 'DKDKD' 
 }
 ```
-### Predict motifs in protein or nucleotide sequences
+## Predict motifs in protein or nucleotide sequences
 This application can predict one or multiple user-defined motifs in one or mutiple sequences. User should define one or multiple patterns using the pattern syntax shown below. 
 
-#### Pattern syntax
+### Pattern syntax
 - Use the standard IUPAC one letter code for the amino acids (for example: "P" stands Proline) and nucleotides code (for example: "C" stands for "cytosine").
 - "[ ]" with listed aminoacids or nucleotides letters means that the listed letters are allowed in this position. ","in between letters are **optional**. For example: [A,T,C] or [ATC] stands for "A" or "T" or "C" are allowed in this position. 
 - "{ }" with listed amino acids or nucleotides letters means the listed letters are NOT allowed in this position. ","in between letters are **optional**. For example: {DE} or {D,E} means "D" or "E" should not be allowed in this position.
@@ -88,7 +87,7 @@ This application can predict one or multiple user-defined motifs in one or mutip
 - User should add a "^" or "<" to indicate that the pattern must started with N-terminal (or 5' terminal).
 - User should add a "$" or ">" to indicate that the pattern must ended with C-terminal (or 3' terminal).
 
-#### Predict a single motif in a single sequence
+### Predict a single motif in a single sequence
 The sample sequence in this demo: 
 ```
 >seq1
@@ -99,7 +98,7 @@ The detailed pattern syntax can be found [here](#pattern-syntax). The sample pat
 [D]-x-[DNS]-{FLIVWY}-[DNESTG]
 ```
 
-##### General workflow for prediction: 
+### General workflow for prediction: 
 1. import "bioinformatics-hub" package.
 2. create bioinformaticsHub object.
 3. set sequences (one or multiple sequences in FASTA format) in bioinformaticsHub object.
@@ -142,10 +141,10 @@ Execution of above code will check if the given sequence(seq1) match the given p
 ]
 ```
 
-##### Accepted input patteren format for bioInformaticsHub.setPatterns(......) method
-To be updated ...
+### Accepted input patteren format
+To be updated ... for bioInformaticsHub.setPatterns(......) method
 
-#### Handle comment line, numbers, gaps, blanks, and comment lines.
+## Handle comment line, numbers, gaps, blanks, and comment lines.
 This application has build in functions to validate and clean up the input sequences in `bioInformaticsHub.setFastaSequences(string);` method. 
 - Invalid input
 
