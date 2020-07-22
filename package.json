@@ -1,6 +1,6 @@
 {
   "name": "bioinformatics-hub",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "An bioinformatics tool to predict and analyze DNA, RNA or protein sequences.",
   "main": "index.js",
   "scripts": {
