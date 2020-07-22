@@ -26,14 +26,13 @@ DKDKD
 ```
 This application can handle 1 sequence or mutiple sequences.
 #### Setup bioinformaticsHub object
-Step 1 and step 2 are always required.
-
-Step 1: import "bioinformatics-hub" package and create a bioinformaticsHub object.
+##### Step 1: import "bioinformatics-hub" package and create a bioinformaticsHub object.
 ```
 const BioinformaticsHub = require("bioinformatics-hub");
 const bioInformaticsHub = new BioinformaticsHub("protein"); // allowed input: "DNA", "RNA", "protein", "pdb".
 ```
-Step 2: set the sequences into bioinformaticsHub object. These sequences should be stored in a string with FASTA format. This application do not have a specific requirement on how many charcters in each line. If you only have 1 squence, then the squence id (started with ">") is optional.
+##### Step 2: set the sequences into bioinformaticsHub object. 
+These sequences should be stored in a string with FASTA format. This application do not have a specific requirement on how many charcters in each line. If you only have 1 squence, then the squence id (started with ">") is optional.
 ```
 const inputSequence = ">sequence_id_1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF\n>sequence_id_2\r\n DKDKD";
 bioInformaticsHub.setFastaSequences(inputSequence); 
@@ -65,19 +64,20 @@ console.log(sequencesWithIds);
 //    sequence_id_2: 'DKDKD' 
 // }
 ```
-### Predict motifs in protein or nucleotide sequences.
+### Predict motifs in protein or nucleotide sequences
 This application can predict one or multiple user-defined motifs in one or mutiple sequences.
-#### Predict a single motif in a single sequence.
+#### Predict a single motif in a single sequence
 Sample sequence in this demo: 
 ```
 >seq1
 SLLKASSTLDNLFKELDKNGDGEVSYEEF
 ```
-Sample pattern in this demo:
+The detailed pattern syntax can be found [here](./#pattern-syntax). Sample pattern in this demo:
 ```
-[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]
+[D]-x-[DNS]-{FLIVWY}-[DNESTG]
 ```
-The general workflow for prediction: 
+
+##### General workflow for prediction: 
 1. import "bioinformatics-hub" package.
 2. create bioinformaticsHub object.
 3. set sequences in bioinformaticsHub object.
@@ -92,22 +92,22 @@ const BioinformaticsHub = require("bioinformatics-hub");
 const bioInformaticsHub = new BioinformaticsHub("protein") //Can be "DNA", "RNA", "Protein"
 bioInformaticsHub.setFastaSequences(">seq1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF");
                  .getPredictionAssistant()
-                 .setPatterns({"patternId_1": "[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]"})
+                 .setPatterns({"patternId_1": "[D]-x-[DNS]-{FLIVWY}-[DNESTG]"})
                  .predict();
 ```
 Execution of above code will produce the output shown below:
 ```
-[     // since this example only have one sequence (named "seq"), this array only contains one element.
+[
   { 
     sequenceId: 'seq1', // sequence Id
     sequence: 'SLLKASSTLDNLFKELDKNGDGEVSYEEF',    // The sequence used for preditions
     contained_motifs: [ 'patternId_1' ],    // Indicate which motif is found in this sequence
-    motifs:    // the prediction results for each pattern (motif) is listed inside of motifs
+    motifs:
       { 
-        patternId_1: // the prediction result for patternId_1
+        patternId_1:     // the prediction result for patternId_1
           {
-            pattern_signiture: '[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]', 
-            matched_sequences:    // All matched sequence with start starting index is listed in this array.
+            pattern_signiture: '[D]-x-[DNS]-{FLIVWY}-[DNESTG]', 
+            matched_sequences: 
               [ 
                 { 
                   startIndex: 16, 
@@ -119,7 +119,18 @@ Execution of above code will produce the output shown below:
   } 
 ]
 ```
-
+#### Pattern syntax
+The standard IUPAC one letter code for the amino acids and nucleotide code.
+- [ ] with listed aminoacids or nucleotides letter means the listed letters are allowed in this position. ","in between letters are **optional**. For example: [A,T,C] or [ATC] stands for "A" or "T" or "C". 
+- { } with listed amino acids or nucleotides letter means the listed letters are NOT allowed in this position. ","in between letters are **optional**. For example: {DE} or {D,E} means "D" or "E" should not be allowed in this position. ","in between letters are optional.
+- The symbol "x" means that this position can be any amino acid or nucleotide is accepted.
+- Each element in a pattern can be separated from its neighbor by a '-'. This is **optional**. For example, [A,T]-x-{C,A}, [A,T]x{C,A}, [AT]-x-{CA}, and [AT]x{CA} are identical patterns. 
+- Repetition of an element in multiple continous positions can be represented by following that element with "(number of repeats)" or a range of values using "(minimum repeates, maximium repeates)".
+  - Examples:
+  - A(3) corresponds to AAA
+  - T(2,5) corresponds to TT, TTT, TTTT, or TTTTT.
+- User should add a "^" or "<" to indicate that the pattern must started with N-terminal (or 5' terminal).
+- User should add a "$" or ">" to indicate that the pattern must ended with C-terminal (or 3' terminal).
 
 #### Single sequence example
 

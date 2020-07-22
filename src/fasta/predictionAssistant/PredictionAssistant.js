@@ -145,7 +145,7 @@ class PredictionAssistant {
   }
 
   /**
-   * Translates a arry of pattern strings (no key) into a {PatternMap}.
+   * Translates an arry of pattern strings (no key) into a {PatternMap}.
    * input example: ["[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]-[DNQGHRK]-{GP}-[LIVMC]-[DENQSTAGC]-x(2)-[ED]", "[DNS]-x-[DNS]-{FLIVWY}"]
    * @param {Array} patternArray 
    * @throws a error if input is not valid.
