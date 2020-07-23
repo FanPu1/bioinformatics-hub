@@ -1,6 +1,13 @@
 /* eslint-disable no-unused-vars */
-const Retriever = require("./../src/NCBIretriever/NCBIRetriever");
-const BioinformaticsApp = require("./../index");
+
+/**
+ * Test the following work flow:
+ * 1. user retreives DNA or protein sequence from NCBI and stored as string.
+ * 2. this sequence is saved in BioinformaticsApp
+ * 3. user can then use bioinformaticsApp to retrieve information of these sequeces and perform analysis.
+ */
+const Retriever = require("../src/retriever/NcbiSeqRetriever");
+const BioinformaticsApp = require("../index");
 
 const retriever = new Retriever();
 const nucleotidesIds = ["M65068.1"];
@@ -41,7 +48,10 @@ f(retriever);
 async function getSequenceById() {
   const fastaString = await retriever.retrieveProteinSequences(proteinids);
   const app = new BioinformaticsApp();
-  return app.setDataType("protein").setFastaSequences(fastaString).getSequenceById("NP_033919.1 protein S100-G [Mus musculus]");
+  const output= app.setDataType("protein").setFastaSequences(fastaString).getSequenceById("NP_033919.1 protein S100-G [Mus musculus]");
+  console.log(fastaString);
+  console.log(output);
 }
 
-getSequenceById().then(console.log);
+getSequenceById();
+

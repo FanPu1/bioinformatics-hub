@@ -217,5 +217,5 @@ test("test translatePatternObject(string) method", ()=>{
   expect(predictionOutput[1].sequenceId).toBe("seq_id_2");
   expect(predictionOutput[1].sequence).toBe("TTTTTTT");
   expect(predictionOutput[1].contained_motifs).toEqual([]);
-  console.log(predictionOutput[0].motifs.pattern1);
+  // console.log(predictionOutput[0].motifs.pattern1);
 });
