@@ -55,7 +55,7 @@ class BioinformaticsApp {
     case "ALL":
       return DataType.ALL;
     case "UNKNOWN":
-      return DataType.UNKNOWN
+      return DataType.UNKNOWN;
     default:
       throw new Error("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', 'nucleotides','PDB', 'all', or 'unknown'.");
     }
