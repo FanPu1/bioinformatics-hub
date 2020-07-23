@@ -15,8 +15,27 @@ test ("test constructor", () => {
   expect(app.dataType).toBe(DataType.PROTEIN);
   app = new BioinformaticsApp("PDB");
   expect(app.dataType).toBe(DataType.PDB);
+  app = new BioinformaticsApp();
+  expect(app.dataType).toBe(null);
+  app = new BioinformaticsApp("nucleotides");
+  expect(app.dataType).toBe("nucleotides");
+  app = new BioinformaticsApp("unknown");
+  expect(app.dataType).toBe(DataType.UNKNOWN);
+  app = new BioinformaticsApp("All");
+  expect(app.dataType).toBe("all");
 });
 
+/**
+ * Test setDataType(dataType) method.
+ */
+test("test setDataType", ()=>{
+  const app = new BioinformaticsApp();
+  expect(app.dataType).toBe(null);
+  app.setDataType("dna");
+  expect(app.dataType).toBe(DataType.DNA);
+  app.setDataType("unknown");
+  expect(app.dataType).toBe(DataType.UNKNOWN);
+});
 /**
  * Test constructor method can set dataType attributes properly, when input is a lowercase string
  */
@@ -37,7 +56,7 @@ test ("test constructor with lowercase string input", () => {
 test ("test constructor with lowercase string input", () => {
   expect(()=>{
     new BioinformaticsApp("unknown string");
-  }).toThrow("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', or 'PDB'.");
+  }).toThrow("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', 'nucleotides','PDB', 'all', or 'unknown'.");
 });
 
 /**
@@ -51,7 +70,7 @@ test ("test validateAndSetDataType method", () => {
   expect(app.validateAndSetDataType("pdb")).toBe(DataType.PDB);
   expect(()=> {
     app.validateAndSetDataType("invalid String");
-  }).toThrow("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', or 'PDB'.");
+  }).toThrow("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', 'nucleotides','PDB', 'all', or 'unknown'.");
 });
 
 /**
@@ -61,7 +80,7 @@ test ("test validateAndSetDataType method with invalid input", () => {
   const app = new BioinformaticsApp("DNA");
   expect(()=> {
     app.validateAndSetDataType("invalid String");
-  }).toThrow("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', or 'PDB'.");
+  }).toThrow("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', 'nucleotides','PDB', 'all', or 'unknown'.");
 });
 
 /**

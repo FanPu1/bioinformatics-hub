@@ -5,6 +5,9 @@ test ("DataType returns expected enum value", ()=> {
   expect(DataType.RNA).toBe("RNA");
   expect(DataType.PROTEIN).toBe("protein");
   expect(DataType.PDB).toBe("pdb");
+  expect(DataType.ALL).toBe("all");
+  expect(DataType.NUCLEOTIDES).toBe("nucleotides");
+  expect(DataType.UNKNOWN).toBe("unknown");
 });
 
 test ("Values in DataType cannot be changed", ()=> {

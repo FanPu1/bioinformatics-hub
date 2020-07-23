@@ -15,14 +15,32 @@ class BioinformaticsApp {
   }
 
   /**
-   * Validates input data type. If valid, return the data type string in {DataType} constant.
+   * A public method to setup dataType attributes in BioinformaticsApp object. The input dataType
+   * will be validated first. If the input dataType is valid, then this method will set the dataType
+   * attribute in BioinformaticsApp object.
+   * @param {string} dataType, the string represtive of the type of the input data.
+   *  must be "DNA", "RNA", "protein", "nucleotides", "PDB", "all", or "unknown".
+   * @returns {BioinformaticsApp} object with the dataType being set.
+   * @throws error if input dataType is not valid.
+   */
+  setDataType (dataType) {
+    this.dataType = this.validateAndSetDataType(dataType);
+    return this;
+  }
+
+  /**
+   * a praivate method to validate and set input data type. If input data type is valid, then 
+   * return the data type string in {DataType} constant.
    * This is a helper function to validate and set dataType in the constructor in this class.
    * @param {string} dataType, the string represtive of the type of the input data.
-   *  must be "DNA", "RNA", "protein", or "pdb".
+   *  must be "DNA", "RNA", "protein", "nucleotides", "PDB", "all", or "unknown".
    * @returns {string} data type string in {DataType} object.
    * @throws error if input dataType is not valid.
    */
   validateAndSetDataType(dataType) {
+    if (dataType === null || dataType === undefined) {
+      return null;
+    } 
     switch (dataType.toUpperCase()){
     case "DNA":
       return DataType.DNA;
@@ -32,8 +50,14 @@ class BioinformaticsApp {
       return DataType.PROTEIN;
     case "PDB":
       return DataType.PDB;
+    case "NUCLEOTIDES":
+      return DataType.NUCLEOTIDES;
+    case "ALL":
+      return DataType.ALL;
+    case "UNKNOWN":
+      return DataType.UNKNOWN
     default:
-      throw new Error("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', or 'PDB'.");
+      throw new Error("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', 'nucleotides','PDB', 'all', or 'unknown'.");
     }
   }
 
