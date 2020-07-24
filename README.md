@@ -1,13 +1,27 @@
 # Bioinformatics-Hub
 This is an open source project used for protein and nucleotide analysis and prediction. At the current stage, this package can perform analysis and prediction based on mutiple protein or nucleotide sequences in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format. We will add pdb analysis in the future.
 
-In version 1.1.x, this application can: 
+In version 1.2.x, this application can: 
+- Retrieve multiple nucleotide or protein sequences from NCBI by user-defined ACCESSION Ids.
 - [Read multiple protein or nucleotide sequences as a single string](#step-2-set-up-the-sequences-into-bioinformaticshub-object),
 - [Remove any numbers, blanks, and comment line (line start with ";") in each sequence](#handle-comment-line-numbers-gaps-blanks-and-comment-lines),
 - [Retrieve a specific sequence by squenceId](#retrieve-a-specifc-sequence-by-sequence-id),
 - [Retrieve all sequence Ids](#retrieve-all-sequence-ids-of-input-sequence),
 - [Retrieve all sequences as javascript object indexed by sequence Ids](#retrive-all-sequences-with-ids-from-the-input-sequence-and-return-as-a-javascript-object),
 - [Scan and predict user-defined protein/nucleotide motifs in multiple sequences](#predict-motifs-in-protein-or-nucleotide-sequences).
+
+## Outline
+- Installation
+- Handle sequences with **BioinformaticsHub** application
+  - Set/save sequence in BioinformaticsHub application
+  - Get all sequence Ids
+  - Get sequence by Id
+  - Get all sequences with Ids as a key in to Javascript object
+- Retrieving multiple nucleotide or protein sequences from NCBI with **NcbiSeqRetriever** module
+  - Example of retrieving protein sequences from NCBI
+  - Example of retrieving nucleotide sequences from NCBI
+  - Use NcbiSeqRetriever and BioinformaticsHub classes together 
+- Predict/Identify motifs in protein and nucleotide sequences
 
 ## Installation
 Running this package requires [nodeJS](https://nodejs.org/en/) environment. Run the below commend to install this package into your project.
@@ -195,6 +209,8 @@ CTCCTGAGGAACTGAAGAGGATTTTTGAAAAATATGCAGCCAAAGAAGGTGATCCAGACCAGTTGTCAAA
 ```
 
 ## Version changes
+- 1.2.0
+  - Retrieve nucleotide or protein sequences in bacth by ACCESSION Ids from NCBI.
 - 1.1.2
   - Update README.MD
 - 1.1.1
