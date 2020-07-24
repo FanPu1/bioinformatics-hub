@@ -6,10 +6,9 @@
  * 2. this sequence is saved in BioinformaticsApp
  * 3. user can then use bioinformaticsApp to retrieve information of these sequeces and perform analysis.
  */
-const Retriever = require("../src/retriever/NcbiSeqRetriever");
+const retriever = require("../src/modules/NcbiSeqRetriever");
 const BioinformaticsApp = require("../index");
 
-const retriever = new Retriever();
 const nucleotidesIds = ["M65068.1"];
 const proteinids = ["AAA49004.1","AAK64208.1","NP_033918.1","NP_033919.1"];
 
