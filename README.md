@@ -6,19 +6,20 @@ At current stage, this package can retrieve protein and nucleotide sequences fro
 We will add protein structure retrieval and analysis modules in the future.
 
 ## Outline
-- Installation
-- Handle user provieded sequences
-  - Set/save sequence in BioinformaticsHub application
+- [Installation](#installation)
+  - [Handle user provieded sequences](#handle-user-provided-sequences)
+  - [Setup bioinformaticsHub object](#setup-bioinformaticshub-object)
+  - [Set/store sequences in BioinformaticsHub application](2#step-2-store-user-provided-sequences-into-bioinformaticshub-object)
   - Get all sequence Ids
   - Get sequence by Id
   - Get all sequences with Ids as a key in to Javascript object
-  - Handle invalid input, blanks, numbers, unsupported charactors.
-- Use NCBI Seqeuence Retriever (NcbiSeqRetriver) module
-  - Retrieve protein sequences from NCBI
-  - Retrieve nucleotide sequences from NCBI
-- Predict/Identify motifs in protein/nucleotides sequences
-  - Pattern syntax
-  - Predict motifs in user-provided sequences
+  - Handle invalid input, blanks, numbers, unsupported charactors in user-provied sequences
+- [Use NCBI Seqeuence Retriever (ncbiSeqRetriver) module](#use-ncbi-seqeuence-retriever-ncbiseqretriever-module)
+  - [Retrieve protein sequences from NCBI](#fetch-protein-sequences-from-ncbi)
+  - [Retrieve nucleotide sequences from NCBI](#fetch-nucleotide-sequences)
+- [Predict/scan motifs in protein/nucleotides sequences](#predict-motifs-in-protein-or-nucleotide-sequences)
+  - [Pattern syntax](#pattern-syntax)
+  - [Predict motifs in user-provided sequences](#predict-motifs-in-protein-or-nucleotide-sequences)
   - Predict motifs in sequences in NCBI database
 - Routine bioinformatics tools for protein/nucleotide sequences
   - TM (melting temperature) calculator (under development)
@@ -93,10 +94,10 @@ console output:
   sequence_id_2: 'DKDKD' 
 }
 ```
-## Use NCBI Seqeuence Retriever (NcbiSeqRetriever) module
-NCBI Seqeuence Retriever (NcbiRetriever module) is a light-weighted javascript module to fetch nucleotide or protein sequences from NCBI databases. This module is a simplified wrapper for [EFetch utility of NCBI E-utilities API](https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch). 
+## Use NCBI Seqeuence Retriever (ncbiSeqRetriever) module
+NCBI Seqeuence Retriever (ncbiRetriever module) is a light-weighted javascript module to fetch nucleotide or protein sequences from NCBI databases. This module is a simplified wrapper for [EFetch utility of NCBI E-utilities API](https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch). 
 
-NCBI Seqeuence Retriever can fetch upto **100** protein sequences or upto **10 short** nuclotide sequences in one sequence retrieve call. We strongly recommend that the lenght of each nucleotide sequence for query should be less than *100,000* bp.
+NCBI Seqeuence Retriever module can fetch upto **100** protein sequences or upto **10 short** nuclotide sequences in one sequence retrieve call. We strongly recommend that the lenght of each nucleotide sequence for query should be less than *100,000* bp.
 
 The retrieved sequences can be returned as a string in FASTA format, or be returned as a javascipt object.
 
@@ -107,10 +108,10 @@ Here are examples to fetch mulitple protein sequences from [NCBI protein databse
 
 #### Return a string representive of sequences in FASTA format 
 ```
-var retriever = require ("bioinformatics-hub/NcbiSeqRetriever");
+const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
-var proteinIds = ["AAA49004.1","AAK64208.1"];  // add upto 100 accession Ids in this array
-retriever.retrieveProteinSequences(proteinIds).then((sequences)=>{
+const proteinIds = ["AAA49004.1","AAK64208.1"];  // add upto 100 accession Ids in this array
+ncbiSequenceRetriver.retrieveProteinSequences(proteinIds).then((sequences)=>{
   console.log(sequences);
 });
 ```
@@ -125,10 +126,10 @@ EAFFKKLSQ
 ```
 #### Return sequences as a javascript object
 ```
-var retriever = require ("bioinformatics-hub/NcbiSeqRetriever");
+const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
-var proteinIds = ["AAA49004.1","AAK64208.1"];  // add upto 100 accession Ids in this array
-retriever.retrieveProteinSequences(proteinIds, "JSON").then((sequences)=>{
+const proteinIds = ["AAA49004.1","AAK64208.1"];  // add upto 100 accession Ids in this array
+ncbiSequenceRetriver.retrieveProteinSequences(proteinIds, "JSON").then((sequences)=>{
   console.log(sequences);
 });
 ```
@@ -146,10 +147,10 @@ Here are examples to fetch one mRNA sequence from [NCBI nucleotide databse](http
 
 #### Return a string representive of sequences in FASTA format 
 ```
-var retriever = require ("bioinformatics-hub/NcbiSeqRetriever");
+const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
-var nucleotidesIds = ["M65068.1"];  // add upto 10 accession Ids in this array
-retriever.retrieveNucleotideSequences(nucleotidesIds).then((sequences)=>{
+const nucleotidesIds = ["M65068.1"];  // add upto 10 accession Ids in this array
+ncbiSequenceRetriver.retrieveNucleotideSequences(nucleotidesIds).then((sequences)=>{
   console.log(sequences);
 });
 ```
@@ -161,10 +162,10 @@ AAGAGACAAAGGCTCTTCTGGCTGCTGGAGATAAGGACGGTGATGGCAAAATCGGCGTGGAAAAA
 ```
 #### Return sequences as javascript object
 ```
-var retriever = require ("bioinformatics-hub/NcbiSeqRetriever");
+const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
-var nucleotidesIds = ["M65068.1"];  // add upto 10 accession Ids in this array
-retriever.retrieveNucleotideSequences(nucleotidesIds, "JSON").then((sequences)=>{
+const nucleotidesIds = ["M65068.1"];  // add upto 10 accession Ids in this array
+ncbiSequenceRetriver.retrieveNucleotideSequences(nucleotidesIds, "JSON").then((sequences)=>{
   console.log(sequences);
 });
 ```
@@ -175,18 +176,18 @@ The output from above code:
     'TTTATTGAGGAGGATGAGCTAAAGTTTGTACTGAAGGGCTTTACCCCAGATGGCAGAGACCTATCAGACAAAGAGACAAAGGCTCTTCTGGCTGCTGGAGATAAGGACGGTGATGGCAAAATCGGCGTGGAAAAA' 
 }
 ```
-## Optional API key
-`retriever.retrieveNucleotideSequences()` and `retriever.retrieveProteinSequences()` methods can take a string API key as the third input parameter. This is optional. This parameter is set to be undefined by default. Adding an valid API key as the third input parameter can increase the number of sequence retrieve calls per second.
+### Optional API key
+`retrieveNucleotideSequences()` and `retrieveProteinSequences()` methods in `ncbiSequenceRetriver` can take a string API key as the third input parameter. This is optional. This parameter is set to be undefined by default. Adding an valid API key as the third input parameter can increase the number of sequence retrieve calls per second.
 
 *On December 1, 2018, NCBI will begin enforcing the use of API keys that will offer enhanced levels of supported access to the E-utilities. After that date, any site (IP address) posting more than 3 requests per second to the E-utilities without an API key will receive an error message. By including an API key, a site can post up to 10 requests per second by default.* More rules about API key can be found in this link: https://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Coming_in_December_2018_API_Key
 
 Sample code with API key as the third input arguement:
 ```
-var retriever = require ("bioinformatics-hub/NcbiSeqRetriever");
+const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
-var nucleotidesIds = ["M65068.1"];  
-var apiKey = "fake_api_key";  // if you have a valid API key, set up in this line.
-retriever.retrieveNucleotideSequences(nucleotidesIds, "JSON", apiKey).then((sequences)=>{
+const nucleotidesIds = ["M65068.1"];  
+const apiKey = "fake_api_key";  // if you have a valid API key, set up in this line.
+ncbiSequenceRetriver.retrieveNucleotideSequences(nucleotidesIds, "JSON", apiKey).then((sequences)=>{
   console.log(sequences);
 });
 ```
