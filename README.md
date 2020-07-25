@@ -1,69 +1,76 @@
 # Bioinformatics-Hub
-This is an open source project used for protein and nucleotide analysis and prediction. At the current stage, this package can perform analysis and prediction based on mutiple protein or nucleotide sequences in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format. We will add pdb analysis in the future.
+Bioinformatics-Hub is an open source bioinformatics package for retrieving, processing and analyzing the sequences and structures of biomolecules, such as proteins, and nucleotides.
+ 
+At current stage, this package can retrieve protein and nucleotide sequences from NCBI, analyzing protein and nucleotide sequnces, and predicting motifs in proteins and nucleotides. Sequences are primarily handled as a single string in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format or as a javascript object. 
 
-In version 1.2.x, this application can: 
-- Retrieve multiple nucleotide or protein sequences from NCBI by user-defined ACCESSION Ids.
-- [Read multiple protein or nucleotide sequences as a single string](#step-2-set-up-the-sequences-into-bioinformaticshub-object),
-- [Remove any numbers, blanks, and comment line (line start with ";") in each sequence](#handle-comment-line-numbers-gaps-blanks-and-comment-lines),
-- [Retrieve a specific sequence by squenceId](#retrieve-a-specifc-sequence-by-sequence-id),
-- [Retrieve all sequence Ids](#retrieve-all-sequence-ids-of-input-sequence),
-- [Retrieve all sequences as javascript object indexed by sequence Ids](#retrive-all-sequences-with-ids-from-the-input-sequence-and-return-as-a-javascript-object),
-- [Scan and predict user-defined protein/nucleotide motifs in multiple sequences](#predict-motifs-in-protein-or-nucleotide-sequences).
+We will add protein structure retrieval and analysis modules in the future.
 
 ## Outline
 - Installation
-- Handle sequences with **BioinformaticsHub** application
+- Handle user provieded sequences
   - Set/save sequence in BioinformaticsHub application
   - Get all sequence Ids
   - Get sequence by Id
   - Get all sequences with Ids as a key in to Javascript object
-- Retrieving multiple nucleotide or protein sequences from NCBI with **NcbiSeqRetriever** module
-  - Example of retrieving protein sequences from NCBI
-  - Example of retrieving nucleotide sequences from NCBI
-  - Use NcbiSeqRetriever and BioinformaticsHub classes together 
-- Predict/Identify motifs in protein and nucleotide sequences
+  - Handle invalid input, blanks, numbers, unsupported charactors.
+- Use NCBI Seqeuence Retriever (NcbiSeqRetriver) module
+  - Retrieve protein sequences from NCBI
+  - Retrieve nucleotide sequences from NCBI
+- Predict/Identify motifs in protein/nucleotides sequences
+  - Pattern syntax
+  - Predict motifs in user-provided sequences
+  - Predict motifs in sequences in NCBI database
+- Routine bioinformatics tools for protein/nucleotide sequences
+  - TM (melting temperature) calculator (under development)
+  - Reverse complement (under development)
+  - Restriction sites detector (under development)
+  - Scrumble sequence generator (under development)
+  - Nucleotide to protein translator (under development)
+- PDB module: retrieve and analyze protein structures (future task)
+  - Retrieve protein structure from protein databank (future task)
+  - Retrieve information from protein structure (future task)
 
 ## Installation
 Running this package requires [nodeJS](https://nodejs.org/en/) environment. Run the below commend to install this package into your project.
 ```
 npm install --save bioinformatics-hub
 ```
-## Basic usage examples
+## Handle user-provided sequences
+### Setup bioinformaticsHub object
+##### Step 1: Import "bioinformatics-hub" package and create a bioinformaticsHub object.
+```
+const BioinformaticsHub = require("bioinformatics-hub");
+const bioInformaticsHub = new BioinformaticsHub();
+```
 
-Sample sequences for this demo: 
+##### Step 2: Store user-provided sequences into bioinformaticsHub object. 
+This application can store one sequence or mutiple sequences provided by user. The sequences should be provided as a single string in [FASTA format](https://en.wikipedia.org/wiki/FASTA_format).
+However, if user wants to store only one squence for analysis, then the squence id (started with ">" in FASTA format) is optional.
+This application will automatically provide a sequence Id as "Unnamed sequence 1", if the only sequence does not have a sequence Id.
+
+Here is an example on how to store two sequences in to this application.
 ```
 >sequence_id_1
 SLLKASSTLDNLFKELDKNGDGEVSYEEF
 >sequence_id_2
 DKDKD
 ```
-This application can handle one sequence or mutiple sequences.
-### Setup bioinformaticsHub object
-##### Step 1: Import "bioinformatics-hub" package and create a bioinformaticsHub object.
+These two sequences can be stored in this application as shown below.
 ```
-const BioinformaticsHub = require("bioinformatics-hub");
-const bioInformaticsHub = new BioinformaticsHub("protein"); // allowed input: "DNA", "RNA", "protein", "pdb".
-```
-##### Step 2: Set up the sequences into bioinformaticsHub object. 
-These sequences should be stored in a string with FASTA format. This application do not have a specific requirement on how many charcters in each line. 
-
-If you want to add one squence for analysis, then the squence id (started with ">" in FASTA format) is optional. If the only sequence does not have a sequence Id, then this application will automatically add sequence Id as "Unnamed sequence 1".
-
-You acan set up the input sequences as shown below.
-```
-const inputSequence = ">sequence_id_1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF\n>sequence_id_2\r\n DKDKD";
+const inputSequence = ">sequence_id_1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF\n>sequence_id_2\r\nDKDKD";
 
 bioInformaticsHub.setFastaSequences(inputSequence); 
 ```
-Now, the bioinformaticsHub setup is completed, and user can use bioinformaticsHub to retrieve sequence Ids and sequences. User can also use bioinformaticsHub to perform sequence analysis, such as predicting motifs in these sequences.
+Now, the bioinformaticsHub setup is completed, and user can use bioinformaticsHub to retrieve sequence Ids , sequences, or retrieve these sequences as a javascript object. User can also use bioinformaticsHub to perform sequence analysis, such as predicting motifs in these sequences.
 
-### Retrieve all sequence Ids of input sequence: 
+User can retrieve all sequence Ids of the stored sequences using the code below:
 ```
 const sequenceIdArray = bioInformaticsHub.getAllSequenceIds();
 console.log(sequenceIdArray); 
 // Console output: [ 'sequence_id_1', 'sequence_id_2' ]
 ```
-### Retrieve a specifc sequence by sequence Id:
+
+User can retrieve a specifc sequence by a sequence Id using the code below:
 ```
 const sequence1 = bioInformaticsHub.getSequenceById("sequence_id_1"); 
 console.log(sequence1); 
@@ -73,7 +80,8 @@ const sequence2 = bioInformaticsHub.getSequenceById("sequence_id_2");
 console.log(sequence2); 
 // console output: DKDKD
 ```
-### Retrive all sequences with Ids from the input sequence and return as a javascript object:
+
+User can retrive all sequences with Ids as a javascript object using the code below:
 ```
 const sequencesWithIds = bioInformaticsHub.getAllSequencesWithIds(); 
 console.log(sequencesWithIds); 
@@ -85,13 +93,16 @@ console output:
   sequence_id_2: 'DKDKD' 
 }
 ```
+## Use NCBI Seqeuence Retriever (NcbiSeqRetriver) module
+To Dos
+
 ## Predict motifs in protein or nucleotide sequences
-This application can predict one or multiple user-defined motifs in one or mutiple sequences. User should define one or multiple patterns using the pattern syntax shown below. 
+This application can predict motifs in one or mutiple sequences using user defined pattern. User should define one or multiple patterns based on the pattern [syntax rules](#pattern-syntax). 
 
 ### Pattern syntax
-- Use the standard IUPAC one letter code for the amino acids (for example: "P" stands Proline) and nucleotides code (for example: "C" stands for "cytosine").
-- "[ ]" with listed aminoacids or nucleotides letters means that the listed letters are allowed in this position. ","in between letters are **optional**. For example: [A,T,C] or [ATC] stands for "A" or "T" or "C" are allowed in this position. 
-- "{ }" with listed amino acids or nucleotides letters means the listed letters are NOT allowed in this position. ","in between letters are **optional**. For example: {DE} or {D,E} means "D" or "E" should not be allowed in this position.
+- The standard IUPAC one letter code for the amino acids (for example: "P" stands Proline) and nucleotides code (for example: "C" stands for "cytosine") should be used to define a patten.
+- "[]" with listed aminoacids or nucleotides letters means that the listed letters are allowed in this position. Charactor "," in between letters are **optional**. For example: [A,T,C] or [ATC] stands for "A" or "T" or "C" are allowed in this position. 
+- "{}" with listed amino acids or nucleotides letters means that the listed letters are NOT allowed in this position. Charactor "," in between letters are **optional**. For example: {DE} or {D,E} means "D" or "E" should not be allowed in this position.
 - The wildcard "x" means that any amino acid or nucleotide in this position is accepted.
 - Each element in a pattern could be separated from its neighbor by a '-'. This is **optional**. For example, [A,T]-x-{C,A}, [A,T]x{C,A}, [AT]-x-{CA}, and [AT]x{CA} are identical patterns. 
 - Repetition of an element in multiple continuous positions can be represented by following that element with a "(number of repeats)" or a "(minimum repeates, maximium repeates)".
@@ -102,12 +113,13 @@ This application can predict one or multiple user-defined motifs in one or mutip
 - User should add a "$" or ">" to indicate that the pattern must ended with C-terminal (or 3' terminal).
 
 ### Predict a single motif in a single sequence
-The sample sequence in this demo: 
+The sample sequence for prediction: 
 ```
 >seq1
 SLLKASSTLDNLFKELDKNGDGEVSYEEF
 ```
-The detailed pattern syntax can be found [here](#pattern-syntax). The sample pattern in this demo:
+
+The sample pattern for prediction:
 ```
 [D]-x-[DNS]-{FLIVWY}-[DNESTG]
 ```
@@ -115,22 +127,22 @@ The detailed pattern syntax can be found [here](#pattern-syntax). The sample pat
 ### General workflow for prediction: 
 1. import "bioinformatics-hub" package.
 2. create bioinformaticsHub object.
-3. set sequences (one or multiple sequences in FASTA format) in bioinformaticsHub object.
+3. store sequences in the bioinformaticsHub object.
 4. retrieve PredictionAssistant object.
-5. set one or mutiple patterns used for prediction.
+5. set one or mutiple patterns.
 6. call predict() method and the prediction results will be returned.
 
 The example shown below demostrates the prediction workflow for predicting one user-defined motif (named "patternId_1") in one protein sequence (named "seq1").
 ```
 const BioinformaticsHub = require("bioinformatics-hub");
 
-const bioInformaticsHub = new BioinformaticsHub("protein") //Can be "DNA", "RNA", "Protein"
-bioInformaticsHub.setFastaSequences(">seq1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF");
+const bioInformaticsHub = new BioinformaticsHub();
+bioInformaticsHub.setFastaSequences(">seq1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF"); // store sequences here
                  .getPredictionAssistant()
-                 .setPatterns({"patternId_1": "[D]-x-[DNS]-{FLIVWY}-[DNESTG]"})
+                 .setPatterns({"patternId_1": "[D]-x-[DNS]-{FLIVWY}-[DNESTG]"}) // store pattern here
                  .predict();
 ```
-Execution of above code will check if the given sequence(seq1) match the given pattern(patternId_1), and produce the output as shown below:
+Execution of above code will find all matches of the given pattern(patternId_1) in the given sequence(seq1). The expected output is shown below:
 ```
 [
   { 
@@ -155,25 +167,22 @@ Execution of above code will check if the given sequence(seq1) match the given p
 ]
 ```
 
-### Accepted input patteren format
-To be updated ... for bioInformaticsHub.setPatterns(......) method
-
-## Handle comment line, numbers, gaps, blanks, and comment lines.
-This application has build in functions to validate and clean up the input sequences in `bioInformaticsHub.setFastaSequences(string);` method. 
+## Handle comment lines, numbers, gaps, blanks, and comment lines in user-provided sequence string.
+This application has build in functions to validate and clean up the input sequences. We handle each situation differently when `bioInformaticsHub.setFastaSequences(string);` method is called.
 - Invalid input
-
-  The input string cannot be blank, empty, null or undefined. It is invalid if a sequence has a sequence id but sequence is blank. In the example shown below, sequence 1 is not valid as the sequence is blank.
+  - The input string cannot be blank, empty, null or undefined.
+  - Two sequences should not the identical sequence Id.
+  - It is invalid if a sequence has a sequence id but sequence is blank. In the example shown below, sequence 1 is not valid as the sequence is blank.
   ```
   >sequence 1
 
   >sequence 2
   AAAATTTAAAATTT
   ```
-  It is invalid to have two sequences with the identical sequence Id.
-
+  
 - Invalid charactor
   
-  The sequence Id can contain any charactors. The sequence should only contain letters a-z, A-Z, "-" (gap) and * (termination). 
+  Sequence Ids can contain any charactors. Sequences should only contain letters a-z, A-Z, "-" (gap) and * (termination). 
 
 - Single sequence without a sequence Id
 
@@ -181,20 +190,21 @@ This application has build in functions to validate and clean up the input seque
 
 - The first sequence in multiple sequences do not have a sequence Id
 
-  If the first sequence in multiple sequences do not have a sequence Id, this application will automatically add "Unamed sequence 1" as its sequence Id.
+  If the first sequence in multiple sequences do not have a sequence Id, this application will automatically add "Unnamed sequence 1" as its sequence Id.
 
 - Numbers in sequences
 
   Numbers in sequences will be removed automatically.
 
 - Blanks in sequences
-  Blanks, such as \r\n, \n in sequences will be removed automatically. Blank lines inside of a sequence will be removded.
+
+  Blanks, such as \r\n,  in sequences will be removed automatically. Blank lines inside of a sequence will be removded as well.
 
 - Comment lines
 
   Comment lines (started with ";") in a FASTA sequence will be removed automatically.
 
-Based on above rules, "Sample sequence 3" and "Sample sequence 4" shown below will have identical sequence when saved in BioinformaticsHub application.
+Based on above rules, "Sample sequence 3" and "Sample sequence 4" shown below will have the identical sequences when saved in BioinformaticsHub application.
 ```
 >Sample sequence 3
 ; this is a comment line, will be removed by CommentLineRemover;
