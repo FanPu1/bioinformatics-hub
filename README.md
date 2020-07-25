@@ -262,7 +262,7 @@ Execution of above code will find all matches of the given pattern(patternId_1) 
   } 
 ]
 ```
-### Predict motifs in protein or nucleotide sequences based on NCBI ACCESSION ids. 
+### Predict motifs in protein or nucleotide sequences based on NCBI ACCESSION ids
 The ncbiMotifScanner module in BioinformaticsHub can predict/scan motifs on sequences if user provides the NCBI ACCESSION ids and patterns.
 #### Scan/predict protein sequnces based on NCBI accession ids
 ```
