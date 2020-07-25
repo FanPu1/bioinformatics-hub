@@ -346,6 +346,8 @@ CTCCTGAGGAACTGAAGAGGATTTTTGAAAAATATGCAGCCAAAGAAGGTGATCCAGACCAGTTGTCAAA
 ```
 
 ## Version changes
+- 1.3.0
+  - Given an array of ACCESSION ids from NCBI protein or nucleotide databases, ncbiMotifScanner module can predict/sca motifs in these sequences.
 - 1.2.0
   - Retrieve nucleotide or protein sequences in bacth by ACCESSION Ids from NCBI.
 - 1.1.2
