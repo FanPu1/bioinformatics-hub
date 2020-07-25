@@ -17,22 +17,6 @@ class PredictionAssistant {
 
   /**
    * Sets the pattern used for prediction. Pattern (motif) is string which is used to check if sequence (string) is matched. 
-   * User should use the motif accroding to https://prosite.expasy.org/scanprosite/scanprosite_doc.html#mo_motifs
-   * 
-   * Pattern syntax
-   * The standard IUPAC one letter code for the amino acids and nucleotide code.
-   * - The symbol 'x' is used for a position where any amino acid is accepted.
-   * - Ambiguities are indicated by listing the acceptable amino acids for a given position, between square brackets '[ ]'. For example: [ALT] stands for Ala or Leu or Thr.
-   * - Ambiguities are also indicated by listing between a pair of curly brackets '{ }' the amino acids that are not accepted at a given position. For example: {AM} stands for all any amino acid except Ala and Met.
-   * - Each element in a pattern is separated from its neighbor by a '-'.
-   * - Repetition of an element of the pattern can be indicated by following that element with a numerical value or, if it is a gap ('x'), by a numerical range between parentheses.
-   * - Examples:
-   *  - x(3) corresponds to x-x-x
-   *  - x(2,4) corresponds to x-x or x-x-x or x-x-x-x
-   *  - A(3) corresponds to A-A-A
-   * - When a pattern is restricted to either the N- or C-terminal of a sequence, that pattern respectively starts with a '<' symbol or ends with a '>' symbol.
-   * - In some rare cases (e.g. PS00267 or PS00539), '>' can also occur inside square brackets for the C-terminal element. 'F-[GSTV]-P-R-L-[G>]' is equivalent to 'F-[GSTV]-P-R-L-G' or 'F-[GSTV]-P-R-L>'.
-   * 
    * User can have the following input:
    * 1. A pattern string without pattern Id. Example 1: "[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]-[DNQGHRK]-{GP}-[LIVMC]-[DENQSTAGC]-x(2)-[ED]"
    * 2. An array of strings, and each element in this array is a pattern used to prediction. Element in this array cannot be repeat. Example 2:
@@ -48,7 +32,7 @@ class PredictionAssistant {
    *          }, 
    *          "patternId_2": "[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]"
    *        }
-   * @param  {String}, {Arrary}, {Object} in above desciption
+   * @param  {String}, {Arrary}, {Object} in above description
    * @returns {PredictionAssistant} object with patternMap being set.
    * @throws a exception if input is null, undefined, a blank string, or an empty string.
    */

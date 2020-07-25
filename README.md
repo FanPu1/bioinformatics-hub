@@ -192,7 +192,7 @@ ncbiSequenceRetriver.retrieveNucleotideSequences(nucleotidesIds, "JSON", apiKey)
 });
 ```
 
-## Predict motifs in protein or nucleotide sequences
+## Predict motifs in protein or nucleotide sequences with user-provided sequences
 This application can predict motifs in one or mutiple sequences using user defined pattern. User should define one or multiple patterns based on the pattern [syntax rules](#pattern-syntax). 
 
 ### Pattern syntax
@@ -262,6 +262,40 @@ Execution of above code will find all matches of the given pattern(patternId_1) 
   } 
 ]
 ```
+### Predict motifs in protein or nucleotide sequences based on NCBI ACCESSION ids. 
+The ncbiMotifScanner module in BioinformaticsHub can predict/scan motifs on sequences if user provides the NCBI ACCESSION ids and patterns.
+#### Scan/predict protein sequnces based on NCBI accession ids
+```
+const {ncbiMotifScanner} = require("bioinformatics-hub/modules");
+
+const sequenceIdArray = ["CAA44792.1", "EEB16923.1"];
+const patterns = {
+  "EF-Hand": "[DNS]x[DNS]{FLIVWY}[DNESTG][DNQGHRK]{GP}[LIVMC][DENQSTAGC]x(2)[ED]",
+  "zinc finger": "[C]x(2,5)[C]x(12,13)[H]x(2,5)[H]"
+};
+
+ncbiMotifScanner.scanProteinMotifsWithNcbiIds(sequenceIdArray, patterns).then((value) =>{
+  // print the whole output object
+  console.log(value);
+});
+```
+
+#### Scan/predict nucloetide sequnces based on NCBI accession ids
+```
+const {ncbiMotifScanner} = require("bioinformatics-hub/modules");
+
+const sequenceIdArray = ["NM_009788.4"];
+const patterns = {
+  "pattern_1": "[A,T]x[C,G]x{A}[G]x(2,5)[C,G]"
+};
+
+ncbiMotifScanner.scanNucleotideMotifsWithNcbiIds(sequenceIdArray, patterns).then((value) =>{
+  // print the whole output object
+  console.log(value);
+});
+```
+#### Optional API key
+`ncbiMotifScanner.scanProteinMotifsWithNcbiIds()` and `ncbiMotifScanner.scanNucleotideMotifsWithNcbiIds()` methods can take the third input paramater, apiKey. You can read more about API key in [NCBI Seqeuence Retriever](#) session.
 
 ## Handle comment lines, numbers, gaps, blanks, and comment lines in user-provided sequence string.
 This application has build in functions to validate and clean up the input sequences. We handle each situation differently when `bioInformaticsHub.setFastaSequences(string);` method is called.
