@@ -7,13 +7,13 @@ We will add protein structure retrieval and analysis modules in the future.
 
 ## Outline
 - [Installation](#installation)
-  - [Handle user provieded sequences](#handle-user-provided-sequences)
+- [Handle user provieded sequences](#handle-user-provided-sequences)
   - [Setup bioinformaticsHub object](#setup-bioinformaticshub-object)
-  - [Set/store sequences in BioinformaticsHub application](2#step-2-store-user-provided-sequences-into-bioinformaticshub-object)
+  - [Set/store sequences in BioinformaticsHub application](#step-2-store-user-provided-sequences-into-bioinformaticshub-object)
   - Get all sequence Ids
   - Get sequence by Id
   - Get all sequences with Ids as a key in to Javascript object
-  - Handle invalid input, blanks, numbers, unsupported charactors in user-provied sequences
+  - [Handle invalid input, blanks, numbers, unsupported charactors in user-provied sequences](#handle-comment-lines-numbers-gaps-blanks-and-comment-lines-in-user-provided-sequence-string)
 - [Use NCBI Seqeuence Retriever (ncbiSeqRetriver) module](#use-ncbi-seqeuence-retriever-ncbiseqretriever-module)
   - [Retrieve protein sequences from NCBI](#fetch-protein-sequences-from-ncbi)
   - [Retrieve nucleotide sequences from NCBI](#fetch-nucleotide-sequences)
@@ -320,7 +320,7 @@ CTCCTGAGGAACTGAAGAGGATTTTTGAAAAATATGCAGCCAAAGAAGGTGATCCAGACCAGTTGTCAAA
 - 1.1.2
   - Update README.MD
 - 1.1.1
-  - Update README.MD 
+  - Update README.MD
 - 1.1.0
   - Read multiple protein or nucleotide sequences.
   - Remove any numbers, blanks, and comment line (line start with ";") in each sequence.
