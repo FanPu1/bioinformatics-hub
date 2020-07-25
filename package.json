@@ -1,6 +1,6 @@
 {
   "name": "bioinformatics-hub",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "An bioinformatics tool to predict and analyze DNA, RNA or protein sequences.",
   "main": "index.js",
   "scripts": {
@@ -36,5 +36,9 @@
   "devDependencies": {
     "eslint": "^7.4.0",
     "jest": "^26.1.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "ncbi-sequence-retriever": "^1.1.0"
   }
 }
