@@ -19,8 +19,8 @@ We will add protein structure retrieval and analysis modules in the future.
   - [Retrieve nucleotide sequences from NCBI](#fetch-nucleotide-sequences)
 - [Predict/scan motifs in protein/nucleotides sequences](#predict-motifs-in-protein-or-nucleotide-sequences)
   - [Pattern syntax](#pattern-syntax)
-  - [Predict motifs in user-provided sequences](#predict-motifs-in-protein-or-nucleotide-sequences)
-  - Predict motifs in sequences in NCBI database
+  - [Predict motifs in user-provided sequences](#predict-motifs-in-protein-or-nucleotide-sequences-with-user-provided-sequences)
+  - [Predict motifs in sequences with given NCBI ACCESSION Ids](#predict-motifs-in-protein-or-nucleotide-sequences-based-on-ncbi-accession-ids)
 - Routine bioinformatics tools for protein/nucleotide sequences
   - TM (melting temperature) calculator (under development)
   - Reverse complement (under development)
@@ -295,7 +295,7 @@ ncbiMotifScanner.scanNucleotideMotifsWithNcbiIds(sequenceIdArray, patterns).then
 });
 ```
 #### Optional API key
-`ncbiMotifScanner.scanProteinMotifsWithNcbiIds()` and `ncbiMotifScanner.scanNucleotideMotifsWithNcbiIds()` methods can take the third input paramater, apiKey. You can read more about API key in [NCBI Seqeuence Retriever](#) session.
+`ncbiMotifScanner.scanProteinMotifsWithNcbiIds()` and `ncbiMotifScanner.scanNucleotideMotifsWithNcbiIds()` methods can take the third input paramater, apiKey. You can read more about API key in [NCBI Seqeuence Retriever](#optional-api-key) session.
 
 ## Handle comment lines, numbers, gaps, blanks, and comment lines in user-provided sequence string.
 This application has build in functions to validate and clean up the input sequences. We handle each situation differently when `bioInformaticsHub.setFastaSequences(string);` method is called.
