@@ -279,7 +279,7 @@ This application has build in functions to validate and clean up the input seque
 
 - Single sequence without a sequence Id
 
-  A single sequence wihtout a sequence Id is a valid input sequence. This application will automatically add "Unamed sequence 1" as its sequence Id.
+  A single sequence without a sequence Id is a valid input sequence. This application will automatically add "Unamed sequence 1" as its sequence Id.
 
 - The first sequence in multiple sequences do not have a sequence Id
 

@@ -25,7 +25,9 @@
     "squence",
     "analysis",
     "prediction",
-    "bioinformatics"
+    "bioinformatics", 
+    "NCBI",
+    "nucleotide"
   ],
   "author": "Fan Pu, Shenghui Xue",
   "license": "MIT",
