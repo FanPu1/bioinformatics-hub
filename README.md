@@ -1,7 +1,7 @@
 # Bioinformatics-Hub
 Bioinformatics-Hub is an open source bioinformatics package for retrieving, processing and analyzing the sequences and structures of biomolecules, such as proteins, and nucleotides.
  
-At current stage, this package can retrieve protein and nucleotide sequences from NCBI, analyzing protein and nucleotide sequnces, and predicting motifs in proteins and nucleotides. Sequences are primarily handled as a single string in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format or as a javascript object. 
+At current stage, this package can retrieve protein and nucleotide sequences from NCBI, analyze protein and nucleotide sequnces, and predict motifs in proteins and nucleotides. Sequences are primarily handled as a single string in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format or as a javascript object. 
 
 We will add protein structure retrieval and analysis modules in the future.
 
@@ -32,7 +32,7 @@ We will add protein structure retrieval and analysis modules in the future.
   - Retrieve information from protein structure (future task)
 
 ## Installation
-Running this package requires [nodeJS](https://nodejs.org/en/) environment. Run the below commend to install this package into your project.
+Running this package requires [nodeJS](https://nodejs.org/en/) environment. Run the below commend to install this package into your javascript project.
 ```
 npm install --save bioinformatics-hub
 ```
@@ -160,7 +160,7 @@ The output from above code:
 TTTATTGAGGAGGATGAGCTAAAGTTTGTACTGAAGGGCTTTACCCCAGATGGCAGAGACCTATCAGACA
 AAGAGACAAAGGCTCTTCTGGCTGCTGGAGATAAGGACGGTGATGGCAAAATCGGCGTGGAAAAA
 ```
-#### Return sequences as javascript object
+#### Return sequences as a javascript object
 ```
 const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
@@ -177,7 +177,7 @@ The output from above code:
 }
 ```
 ### Optional API key
-`retrieveNucleotideSequences()` and `retrieveProteinSequences()` methods in `ncbiSequenceRetriver` can take a string API key as the third input parameter. This is optional. This parameter is set to be undefined by default. Adding an valid API key as the third input parameter can increase the number of sequence retrieve calls per second.
+`retrieveNucleotideSequences()` and `retrieveProteinSequences()` methods in `ncbiSequenceRetriver` can take a string API key as the third input parameter. This is *optional*. This parameter is set to be undefined by default. Adding an valid API key as the third input parameter to these methods can increase the number of sequence retrieve calls from 3 calls per second to 10 calls per second from one Ip address.
 
 *On December 1, 2018, NCBI will begin enforcing the use of API keys that will offer enhanced levels of supported access to the E-utilities. After that date, any site (IP address) posting more than 3 requests per second to the E-utilities without an API key will receive an error message. By including an API key, a site can post up to 10 requests per second by default.* More rules about API key can be found in this link: https://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Coming_in_December_2018_API_Key
 
@@ -268,6 +268,7 @@ This application has build in functions to validate and clean up the input seque
 - Invalid input
   - The input string cannot be blank, empty, null or undefined.
   - Two sequences should not the identical sequence Id.
+  - Sequence Ids can contain any charactors. Sequences should only contain letters a-z, A-Z, "-" (optional, stands for gap) and * (optional, stands for termination). 
   - It is invalid if a sequence has a sequence id but sequence is blank. In the example shown below, sequence 1 is not valid as the sequence is blank.
   ```
   >sequence 1
@@ -275,10 +276,6 @@ This application has build in functions to validate and clean up the input seque
   >sequence 2
   AAAATTTAAAATTT
   ```
-  
-- Invalid charactor
-  
-  Sequence Ids can contain any charactors. Sequences should only contain letters a-z, A-Z, "-" (gap) and * (termination). 
 
 - Single sequence without a sequence Id
 
