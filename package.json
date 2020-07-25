@@ -1,7 +1,7 @@
 {
   "name": "bioinformatics-hub",
   "version": "1.2.0",
-  "description": "An bioinformatics tool to predict and analyze DNA, RNA or protein sequences.",
+  "description": "an open source bioinformatics package for retrieving, processing and analyzing the sequences and structures of biomolecules, such as proteins and nucleotides.",
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
