@@ -1,5 +1,5 @@
 const BioinformaticsHub = require("./../../index");
-const {ncbiSequenceRetriever} = require("./../../modules");
+const ncbiSequenceRetriever = require("./NcbiSeqRetriever");
 
 /**
  * Given an array of ACCESSION ids from NCBI protein or nuccore databases, predict/scan
