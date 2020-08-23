@@ -346,6 +346,10 @@ CTCCTGAGGAACTGAAGAGGATTTTTGAAAAATATGCAGCCAAAGAAGGTGATCCAGACCAGTTGTCAAA
 ```
 
 ## Version changes
+- 1.3.3
+  - Fix a bug related with an error when using react by update ncbi-sequence-retriever. version.
+- 1.3.2
+  - Fix a bug related with an error when using react.
 - 1.3.1
   - bug fix.
 - 1.3.0
