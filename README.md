@@ -346,6 +346,8 @@ CTCCTGAGGAACTGAAGAGGATTTTTGAAAAATATGCAGCCAAAGAAGGTGATCCAGACCAGTTGTCAAA
 ```
 
 ## Version changes
+- 1.3.4
+  - Fix a bug related with making request using http instead of https by update ncbi-sequence-retriever version.
 - 1.3.3
   - Fix a bug related with an error when using react by updating ncbi-sequence-retriever version.
 - 1.3.2

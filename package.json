@@ -1,6 +1,6 @@
 {
   "name": "bioinformatics-hub",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "an open source bioinformatics package for retrieving, processing and analyzing the sequences and structures of biomolecules, such as proteins and nucleotides.",
   "main": "index.js",
   "scripts": {
@@ -41,6 +41,6 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "ncbi-sequence-retriever": "^1.1.1"
+    "ncbi-sequence-retriever": "^1.1.2"
   }
 }
