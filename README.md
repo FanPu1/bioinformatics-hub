@@ -34,7 +34,7 @@ We will add protein structure retrieval and analysis modules in the future.
 ## Installation
 Running this package requires [nodeJS](https://nodejs.org/en/) environment. Run the below commend to install this package into your javascript project.
 ```
-npm install --save bioinformatics-hub
+npm install --save bioinformatics-hub  
 ```
 ## Handle user-provided sequences
 ### Setup bioinformaticsHub object
