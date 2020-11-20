@@ -233,7 +233,7 @@ The example shown below demostrates the prediction workflow for predicting one u
 const BioinformaticsHub = require("bioinformatics-hub");
 
 const bioInformaticsHub = new BioinformaticsHub();
-bioInformaticsHub.setFastaSequences(">seq1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF"); // store sequences here
+bioInformaticsHub.setFastaSequences(">seq1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF") // store sequences here
                  .getPredictionAssistant()
                  .setPatterns({"patternId_1": "[D]-x-[DNS]-{FLIVWY}-[DNESTG]"}) // store pattern here
                  .predict();
@@ -346,22 +346,25 @@ CTCCTGAGGAACTGAAGAGGATTTTTGAAAAATATGCAGCCAAAGAAGGTGATCCAGACCAGTTGTCAAA
 ```
 
 ## Version changes
+- 1.4.0
+  - **New feature:** Added method to translate nucleotide sequences to protein seequences. 
+  - **New feature:** Check if nucleotide or protein sequence contains invalid characters.
 - 1.3.4
-  - Fix a bug related with making request using http instead of https by update ncbi-sequence-retriever version.
+  - Fixed a bug related with making request using http instead of https by update ncbi-sequence-retriever version.
 - 1.3.3
-  - Fix a bug related with an error when using react by updating ncbi-sequence-retriever version.
+  - Fixed a bug related with an error when using react by updating ncbi-sequence-retriever version.
 - 1.3.2
-  - Fix a bug related with an error when using react.
+  - Fixed a bug related with an error when using react.
 - 1.3.1
   - bug fix.
 - 1.3.0
-  - Given an array of ACCESSION ids from NCBI protein or nucleotide databases, ncbiMotifScanner module can predict/sca motifs in these sequences.
+  - **New Feature:** Given an array of ACCESSION ids from NCBI protein or nucleotide databases, ncbiMotifScanner module can predict/sca motifs in these sequences.
 - 1.2.0
-  - Retrieve nucleotide or protein sequences in bacth by ACCESSION Ids from NCBI.
+  - **New feature:** Retrieve nucleotide or protein sequences in bacth by ACCESSION Ids from NCBI.
 - 1.1.2
-  - Update README.MD
+  - Updated README.MD
 - 1.1.1
-  - Update README.MD
+  - Updated README.MD
 - 1.1.0
   - Read multiple protein or nucleotide sequences.
   - Remove any numbers, blanks, and comment line (line start with ";") in each sequence.
@@ -371,8 +374,6 @@ CTCCTGAGGAACTGAAGAGGATTTTTGAAAAATATGCAGCCAAAGAAGGTGATCCAGACCAGTTGTCAAA
   - Scan and predict protein/nucleotide motifs in multiple sequences provided by user in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format.
 
 ## For internal Bioinformatics-Hub developers
-### High Level Design
-![high level design](./design/image/high_level_design.png)
 ### Test
  [Jest](https://jestjs.io/docs/en/getting-started) is used to perfom all unit tests in this repository. Tests are written in the [test](./test) folder using the idential file structure in the .js files in the src folder. 
 Use this command to run all the unit tests:
