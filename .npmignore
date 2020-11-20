@@ -1,0 +1,13 @@
+# unit test folder
+test/
+coverage/
+
+# seeds data folder
+seeds/
+
+# manual_integration_test folder
+manual_integration_test/
+
+.vscode/
+.github/
+node_modules/
