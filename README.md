@@ -5,6 +5,10 @@ At current stage, this package can retrieve protein and nucleotide sequences fro
 
 We will add protein structure retrieval and analysis modules in the future.
 
+## Bioinformatics-Hub demo site
+https://bioinformatics-hub.vercel.app/
+Created using Bioinformatics-Hub package.
+
 ## Outline
 - [Installation](#installation)
 - [Handle user provieded sequences](#handle-user-provided-sequences)
