@@ -34,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/FanPu1/bioinformatics-hub/issues"
   },
-  "homepage": "https://github.com/FanPu1/bioinformatics-hub#readme",
+  "homepage": "https://bioinformatics-hub.vercel.app/",
   "devDependencies": {
     "eslint": "^7.4.0",
     "jest": "^26.1.0"
