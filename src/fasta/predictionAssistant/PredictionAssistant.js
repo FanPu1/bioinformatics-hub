@@ -7,7 +7,7 @@ const PatternFinder = require("./PatternFinder");
 class PredictionAssistant {
   
   /**
-   * The constructor of {PredictionaAssistant} class.
+   * The constructor of {PredictionAssistant} class.
    * @param {FastaSeq} a fastaSequenceObject.
    */
   constructor(fastaSequenceObject) {
@@ -27,12 +27,12 @@ class PredictionAssistant {
    *        {
    *          "patternId_1": {
    *            "pattern": "[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]-[DNQGHRK]-{GP}-[LIVMC]-[DENQSTAGC]-x(2)-[ED]",
-   *            "description": "This is a desciption of this pattern, what is used for, where it is come from",
+   *            "description": "This is a description of this pattern, what is used for, where it is come from",
    *            "url":"www.reference_url.io"
    *          }, 
    *          "patternId_2": "[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]"
    *        }
-   * @param  {String}, {Arrary}, {Object} in above description
+   * @param  {String}, {Array}, {Object} in above description
    * @returns {PredictionAssistant} object with patternMap being set.
    * @throws a exception if input is null, undefined, a blank string, or an empty string.
    */
@@ -84,13 +84,13 @@ class PredictionAssistant {
 
   /**
    * Translates a JSON object containing keys and values into a {PatternMap}.
-   * Input patern object example -> A JSON object containing a pattern and a pattern Id:
+   * Input pattern object example -> A JSON object containing a pattern and a pattern Id:
    *        {"patternId_1": "[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]-[DNQGHRK]-{GP}-[LIVMC]-[DENQSTAGC]-x(2)-[ED]"}
    *        OR
    *        {
    *          "patternId_1": {
    *            "pattern": "[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]-[DNQGHRK]-{GP}-[LIVMC]-[DENQSTAGC]-x(2)-[ED]",
-   *            "description": "This is a desciption of this pattern, what is used for, where it is come from",
+   *            "description": "This is a description of this pattern, what is used for, where it is come from",
    *            "url":"www.reference_url.io"
    *          }, 
    *          "patternId_2": "[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]"
@@ -129,7 +129,7 @@ class PredictionAssistant {
   }
 
   /**
-   * Translates an arry of pattern strings (no key) into a {PatternMap}.
+   * Translates an array of pattern strings (no key) into a {PatternMap}.
    * input example: ["[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]-[DNQGHRK]-{GP}-[LIVMC]-[DENQSTAGC]-x(2)-[ED]", "[DNS]-x-[DNS]-{FLIVWY}"]
    * @param {Array} patternArray 
    * @throws a error if input is not valid.
@@ -160,7 +160,7 @@ class PredictionAssistant {
    * Read instructions on https://github.com/accliu/Nerds_pockets/projects/1 on
    * how to use this method correctly.
    * @returns the prediction results along with the fasta sequence Ids, fasta sequences,
-   * pattern(motif) name, pattern signiture, and prediction result. Example:
+   * pattern(motif) name, pattern signature, and prediction result. Example:
    * [
    *    {
    *        sequenceId: "fake sequence Id 1",
@@ -170,14 +170,14 @@ class PredictionAssistant {
    *        {
    *            "ef-hand": 
    *            {
-   *                pattern_signiture: "[D]-x-[D,E]-x-[D,E]",
+   *                pattern_signature: "[D]-x-[D,E]-x-[D,E]",
    *                matched_sequences: [{starting_index: 23, sequence: "DKDGE"}, {starting_index: 55, sequence: "DSEKD"}]
    *            },
-   *            "zink-finger": 
+   *            "zinc-finger": 
    *            {
-   *                pattern_signiture: "[C]-x-[C]-x-[C]",
+   *                pattern_signature: "[C]-x-[C]-x-[C]",
    *                matched_sequences: [],
-   *                discription: "description of zink finger",
+   *                description: "description of zinc finger",
    *                url: "www.fakeurl.com"
    *            } 
    *        }
@@ -190,12 +190,12 @@ class PredictionAssistant {
    *        {
    *            "ef-hand": 
    *            {
-   *                pattern_signiture: "[D]-x-[D,E]-x-[D,E]",
+   *                pattern_signature: "[D]-x-[D,E]-x-[D,E]",
    *                matched_sequences: []
    *            },
-   *            "zink-fingure": 
+   *            "zinc-fingerer": 
    *            {
-   *                pattern_signiture: "[C]-x-[C]-x-[C]",
+   *                pattern_signature: "[C]-x-[C]-x-[C]",
    *                matched_sequences: []
    *            } 
    *        }
@@ -208,9 +208,9 @@ class PredictionAssistant {
     if (!this.patternsWithIds) {throw new Error("Motif (pattern) is not setup properly");}
     const predictionResultArray = [];
 
-    // retrive FASTA sequences Ids from fastaSequenceObject and stored in an array.
+    // retrieve FASTA sequences Ids from fastaSequenceObject and stored in an array.
     const fastaSeqIdArray = this.fastaSequenceObject.getAllSequenceIds();
-    // retrive Pattern Ids from {PatternMap} stored in patternsWithIds.
+    // retrieve Pattern Ids from {PatternMap} stored in patternsWithIds.
     const patternIdArray = [...this.patternsWithIds.keys()];
     if (fastaSeqIdArray.length && patternIdArray.length) {
       // loop through each sequence Ids 
@@ -226,16 +226,16 @@ class PredictionAssistant {
 
         // loop through patternIds and predict the presence of each motif against sequence. 
         for (let patternId of patternIdArray) {
-          //retrieve motif pattern (signiture), desription, and reference url
+          //retrieve motif pattern (signature), description, and reference url
           const pattern = this.patternsWithIds.get(patternId).pattern;
           const originalPattern = this.patternsWithIds.get(patternId).originalPattern;
           const description = this.patternsWithIds.get(patternId).description;
           const url = this.patternsWithIds.get(patternId).url;
-          // save patternId key and pattern signiture into predictionResult.motifs
+          // save patternId key and pattern signature into predictionResult.motifs
           predictionResult.motifs[patternId] = {};
-          predictionResult.motifs[patternId].pattern_signiture = originalPattern;
+          predictionResult.motifs[patternId].pattern_signature = originalPattern;
           predictionResult.motifs[patternId].matched_sequences = [];
-          // if desciption and url are not null or defined, save these information as part of 
+          // if description and url are not null or defined, save these information as part of 
           // motif information as well.
           if (description != null || description != undefined) {
             predictionResult.motifs[patternId].description = description;
@@ -243,7 +243,7 @@ class PredictionAssistant {
           if (url !== null || description != undefined) {
             predictionResult.motifs[patternId].url = url;
           }
-          // scan this pattern (motif signiture) against sequence, 
+          // scan this pattern (motif signature) against sequence, 
           // if there is pattern match, then push the pattern id to predictionResult.contained_motifs array.
           const finder = new PatternFinder();
           if(finder.containPattern(pattern, sequence)) {

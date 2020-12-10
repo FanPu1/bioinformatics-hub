@@ -2,7 +2,7 @@ const fs = require("fs");
 const BioinformaticsApp = require("./../../index");
 const DataType = require("./../../src/constants/DataType");
 
-// Below are three individule sequences extracted from fastaDNASequence1.txt manually.
+// Below are three individual sequences extracted from fastaDNASequence1.txt manually.
 const unnamedSequence1 = "TTTCCCAACAGGATCTCCCACCAGCCCAGCTTTTCTATATAGGCTCTGACCTCTGGTCATCCAAGTTGCAGGATGTCGATGACAGACTTGCTCAGCGCTGAGGACATCAAGAAGGCGATAGGAGCCTTTACTGCTGCAGACTCCTTCGACCACAAAAAGTTCTTCCAGATGGTGGGCCTGAAGAAAAAGAGTGCGGATGATGTGAAGAAGGTGTTCCACATTCTGGACAAAGACAAAAGTGGCTTCATTGAGGAGGATGAGCTGGGGTCCATTCTGAAGGGCTTCTCCTCAGATGCCAGAGACTTGTCTGCTAAGGAAACAAAGACGCTGATGGCTGCTGGAGACAAGGACGGGGACGGCAAGATTGGGGTTGAAGAATTCTCCACTCTGGTGGCCGAAAGCTAAGTGGCGCTGACTGCTTGGGTCTCCCACCTCTCCACCCCCCATGCCCCATCTCAGCCCTTCTCGCGGCCCTCCTGGGTTTCTGTTCAGTTTGTTTATGTTATTTTTTACTCCCCCATCCTTTATGGCCCTCGAATGACACCACTCTTCTGGAAAATGCTGGAGAAACAATAAAGGCTGTACCCATCGGACACCACCTGTAGGGAGGACCCAGGCCTGGTAGGTGTTGGTTTGGCAAGTTTTTCCGGACAGCAGTGGGGGTATAGTAGAAAAAGTGAGAGAGAGCGAAGGACCACGCCCTGATATTTCCTGCCTGCTTGGTACCGAGTGGTCACGTGGGCCACCTTGTTCAGTCTTTGTGCCTTTCCTACAAGGGGATGGGATGGCGCAGGGGATTTTAAAGATGCAGAAACTGCCTTTTAAAGAGCAGAACGGAAGGGGCTGAGTCCACAGGTGATTACTTTATGTCCCTGAGGAATAACTAGGTCGAAGGACTCAAATGACACTCTATCAATTGCTTTTGACTTTGCTGTGATAAAATTCCTGATAAGAGAAACTT";
 const sampleSequence2 = "AAACTCCTCTTTGATTCTTCTAGCTGTTTCACTATTGGGCAACCAGACACCAGAATGAGTACTAAAAAGTCTCCTGAGGAACTGAAGAGGATTTTTGAAAAATATGCAGCCAAAGAAGGTGATCCAGACCAGTTGTCAAAGGATGAACTGAAGCTATTGATTCAGGCTGAATTCCCCAGTTTACTCAAAGGTCCAAACACCCTAGATGATCTCTTTCAAGAACTGGACAAGAATGGAGATGGAGAAGTTAGTTTTGAAGAATTCCAAGTATTAGTAAAAAAGATATCCCAGTGAAGGAGAAAACAAAATAGAACCCTGAGCACTGGAGGAAGAGCGCTGTGCTGTGGTCTTATCCTATGTGGAATCCCCCAAAGTCTCTGGTTTAATTCTTTGCAATTATAATAACCTGGCTGTGAGGTTCAGTTATTATTAATAAAGAAATTACTAGACATAC";
 const unnamedSequence2 = "TTCGGCCGGC"; 
@@ -18,7 +18,7 @@ test("test FastaSeq constructor and its attributes", () => {
     
     // assert data type
     expect(fastaSeq.dataType).toBe(DataType.DNA);
-    // assert the orginal fasta sequence saved in the BioinformaticsApp 
+    // assert the original fasta sequence saved in the BioinformaticsApp 
     expect(fastaSeq.fastaSequencesString).toBe(fastaSequenceString);
     // assert that fastaSequenceObject in BioinformaticsApp contains the expected object
     expect(app.fastaSequenceObject).toBe(fastaSeq);
@@ -50,7 +50,7 @@ test("test methods in FastSeq if input FASTA string is not blank or empty", () =
     const fastaSeqObj = app.setFastaSequences(fastaSequenceString).getFastaSequenceObject();
     const expectedSequenceIds = ["Unnamed sequence 1", "Sample sequence 2", "Unnamed sequence 2"];
     
-    // assert that getAllsequenceId() method returns all sequence Ids.
+    // assert that getAllSequenceId() method returns all sequence Ids.
     expect(fastaSeqObj.getAllSequenceIds().sort()).toEqual(expectedSequenceIds.sort());
 
     // assert that size() method returns 3.
@@ -64,7 +64,7 @@ test("test methods in FastSeq if input FASTA string is not blank or empty", () =
       fastaSeqObj.getSequenceById("an invalid sequence id");
     }).toThrow("This sequence id is not valid. sequenceId = " + "an invalid sequence id");
 
-    // assert getSequencesWithIds() method returns expected sequences using id as indeces. 
+    // assert getSequencesWithIds() method returns expected sequences using id as indices. 
     const expectedSequencesByIdsObjected = {};
     expectedSequencesByIdsObjected["Unnamed sequence 1"] = unnamedSequence1;
     expectedSequencesByIdsObjected["Unnamed sequence 2"] = unnamedSequence2;

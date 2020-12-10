@@ -16,7 +16,7 @@ function cleanup(string) {
   if (!outputString || outputString.length === 0) {
     throw new Error("Invalid sequence: " + string);
   }
-  // Step 3: If the output string not only contains letters, "*", or "-", then thrown a expection
+  // Step 3: If the output string not only contains letters, "*", or "-", then thrown a exception
   const expectedRegExp = new RegExp("[^a-zA-Z-*]");
   if (expectedRegExp.test(outputString)) {
     throw new Error("Sequence contains invalid characters. Sequence: " + string);

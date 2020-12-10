@@ -207,7 +207,7 @@ test("test translatePatternObject(string) method", ()=>{
   expect(predictionOutput[0].contained_motifs).toEqual(["pattern1", "pattern2"]);
   let outputMotifs= predictionOutput[0].motifs;
   expect(Object.keys(outputMotifs)).toEqual(["pattern1", "pattern2"]);
-  expect(outputMotifs.pattern1.pattern_signiture).toEqual("[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]");
+  expect(outputMotifs.pattern1.pattern_signature).toEqual("[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]");
   expect(outputMotifs.pattern1.description).toEqual("This is a description");
   expect(outputMotifs.pattern1.url).toEqual("www.test.io");
   expect(outputMotifs.pattern1.matched_sequences.length).toBe(2);

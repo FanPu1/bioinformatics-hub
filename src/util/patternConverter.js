@@ -6,7 +6,7 @@
  *  output: 
  *    [DNS][\w][DNS][^FLIVWY][DNESTG][DNQGHRK][^GP][LIVMC][DENQSTAGC][\w][\w][ED]
  * 
- * Precedures to convert motif (pattern) to regular expression string:
+ * Procedures to convert motif (pattern) to regular expression string:
  * - remove all - outside of [].
  * - replace x -x x- with [\w].
  * - replace { with [^.

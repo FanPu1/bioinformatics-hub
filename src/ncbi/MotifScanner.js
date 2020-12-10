@@ -19,7 +19,7 @@ class MotifScanner {
    *        {
    *          "patternId_1": {
    *            "pattern": "[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]-[DNQGHRK]-{GP}-[LIVMC]-[DENQSTAGC]-x(2)-[ED]",
-   *            "description": "This is a desciption of this pattern, what is used for, where it is come from",
+   *            "description": "This is a description of this pattern, what is used for, where it is come from",
    *            "url":"www.reference_url.io"
    *          }, 
    *          "patternId_2": "[DNS]-x-[DNS]-{FLIVWY}-[DNESTG]"
@@ -35,7 +35,7 @@ class MotifScanner {
     // retrieve sequences from NCBI
     const fastaSequenceString = await ncbiSequenceRetriever.retrieveProteinSequences(ncbiAccessIdArray, "FASTA", apiKey);
 
-    // predict motifs from retreived sequences
+    // predict motifs from retrieved sequences
     const bioinformaticsHub = new BioinformaticsHub();
     return bioinformaticsHub.setFastaSequences(fastaSequenceString).getPredictionAssistant().setPatterns(patterns).predict();
   }
@@ -53,7 +53,7 @@ class MotifScanner {
    *        {
    *          "patternId_1": {
    *            "pattern": "[AT]-x-[CA]-{T}-[AC]",
-   *            "description": "This is a desciption of this pattern, what is used for, where it is come from",
+   *            "description": "This is a description of this pattern, what is used for, where it is come from",
    *            "url":"www.reference_url.io"
    *          }, 
    *          "patternId_2": "[AT]-x-[CA]-{T}-[AC]-{A}"
@@ -69,7 +69,7 @@ class MotifScanner {
     // retrieve sequences from NCBI
     const fastaSequenceString = await ncbiSequenceRetriever.retrieveNucleotideSequences(ncbiAccessIdArray, "FASTA", apiKey);
 
-    // predict motifs from retreived sequences
+    // predict motifs from retrieved sequences
     const bioinformaticsHub = new BioinformaticsHub();
     return bioinformaticsHub.setFastaSequences(fastaSequenceString).getPredictionAssistant().setPatterns(patterns).predict();
   }

@@ -10,9 +10,9 @@ test("test cleanup() method returns expected string", () => {
 });
 
 /**
- * Test that an expection is thrown by clean up method when the sequence contains illeagle charactors
+ * Test that an exception is thrown by clean up method when the sequence contains illegal characters
  */
-test("test string contains illeage charactors", ()=> {
+test("test string contains illegal characters", ()=> {
   inputString = "SDFASFDn;sdfadsf";
   expect(()=>{
     cleanup(inputString);
@@ -20,9 +20,9 @@ test("test string contains illeage charactors", ()=> {
 });
 
 /**
- * Test that an expection is thrown by cleanup() method when the sequence only contains blanks
+ * Test that an exception is thrown by cleanup() method when the sequence only contains blanks
  */
-test("test string contains illeage charactors", ()=> {
+test("test string contains illegal characters", ()=> {
   inputString = "    \n    \r     ";
   expect(()=>{
     cleanup(inputString);

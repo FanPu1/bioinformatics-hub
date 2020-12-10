@@ -5,11 +5,11 @@ class FastaSeq {
   /**
    * Constructor for FastaSeq class. 
    * @param {DataType} dataType, the type of the input data (can be DNA, RNA, Protein or PDB).
-   * @param {string} fastaSequecnesString, fasta sequences string.
+   * @param {string} fastaSequencesString, fasta sequences string.
    */
-  constructor(datatype, fastaSequecnesString) {
+  constructor(datatype, fastaSequencesString) {
     this.dataType = datatype;
-    this.fastaSequencesString = fastaSequecnesString;
+    this.fastaSequencesString = fastaSequencesString;
     this.seqMap = this.covertSeqToMap();
     this.seqAssistant = null;
     this.PredictionAssistant = null;
@@ -17,17 +17,17 @@ class FastaSeq {
 
   /**
    * Converts the {String} fasta sequence into a {Map}.
-   * @return {Map} a map represtive of fasta sequences.
+   * @return {Map} a map representative of fasta sequences.
    */
   covertSeqToMap() {
-    // Step 1: store each indivalue fasta sequence in to a fasta sequence unit array (fastaUnitArray). 
+    // Step 1: store each individual fasta sequence in to a fasta sequence unit array (fastaUnitArray). 
     const seqMap = new Map();
-    // remove commentline from this string. The comment line in FASTA file start with ";"
+    // remove comment lines from this string. The comment line in FASTA file start with ";"
     const commentRemover = new CommentLineRemover();
-    const fastaSequecnesStringNoCommentLine = commentRemover.removeCommentLine(this.fastaSequencesString);
+    const fastaSequencesStringNoCommentLine = commentRemover.removeCommentLine(this.fastaSequencesString);
 
     // split String by ">", and keep >
-    const fastaUnitArray = fastaSequecnesStringNoCommentLine.trim().split(/(?=>)/g);
+    const fastaUnitArray = fastaSequencesStringNoCommentLine.trim().split(/(?=>)/g);
     // prepare index for unnamed sequences
     let unnamedSeqIndex = 1;
 
@@ -38,7 +38,7 @@ class FastaSeq {
       
       let sequenceId;
       let sequence = "";
-      // First line must start with ">" followed by sequence Id. Otherwize this fasta sequence unit 
+      // First line must start with ">" followed by sequence Id. Otherwise this fasta sequence unit 
       // do not have an id, and we want to give a id called "Unnamed sequence " + unnamedSeqIndex;
       if (lineArray[0].trim().charAt(0) === ">" && lineArray[0].trim().length > 1) { // key is available
         sequenceId = lineArray[0].trim().substring(1);     
@@ -84,7 +84,7 @@ class FastaSeq {
    * Gets a specific FASTA sequence by its sequence Id.
    * @param {String} sequenceId, the sequence Id to query.
    * @returns {String} Fasta sequence (could be a empty string if fasta sequence only have title).
-   * @throws An Error if the sequnceId is not valid.
+   * @throws An Error if the sequenceId is not valid.
    */
   getSequenceById(sequenceId) {
     const validSequenceIds = this.getAllSequenceIds();

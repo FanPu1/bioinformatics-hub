@@ -129,17 +129,17 @@ test ("test input string for setFastaSequences method is a blank string", ()=>{
   const fastaSequencesString3 = " \n\r \t";
   expect (()=>{
     app.setFastaSequences(fastaSequencesString1);
-  }).toThrow("The input FASTA sequence cannot be emtyp or blank.");
+  }).toThrow("The input FASTA sequence cannot be empty or blank.");
   expect (()=>{
     app.setFastaSequences(fastaSequencesString2);
-  }).toThrow("The input FASTA sequence cannot be emtyp or blank.");
+  }).toThrow("The input FASTA sequence cannot be empty or blank.");
   expect (()=>{
     app.setFastaSequences(fastaSequencesString3);
-  }).toThrow("The input FASTA sequence cannot be emtyp or blank.");
+  }).toThrow("The input FASTA sequence cannot be empty or blank.");
 });
 
 /**
- * Test different conditions in getPreditionAssistant method.
+ * Test different conditions in getPredictionAssistant method.
  */
 test("test getPredictionAssistant method", ()=>{
   const app = new BioinformaticsApp("protein");

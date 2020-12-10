@@ -1,7 +1,7 @@
 const sequenceValidator = require ("../../src/util/SequenceValidator");
 
 /**
- * Test isNucleotideSequenceValid() returns exepcted value
+ * Test isNucleotideSequenceValid() returns expected value
  */
 test("test isNucleotideSequenceValid() method", ()=> {
   const validSequence = "ATUCGATCG*-";
@@ -11,7 +11,7 @@ test("test isNucleotideSequenceValid() method", ()=> {
 });
 
 /**
- * Test isNucleotideSequenceValid() returns exepcted value
+ * Test isNucleotideSequenceValid() returns expected value
  */
 test("test isProteinSequenceValid() method", ()=> {
   const validSequence = "DGNGYIDENELDALLKDLCEKNKQDLDINNITTYKKNIMALSDGGKLYRTDLALILCAGDNC*-";
