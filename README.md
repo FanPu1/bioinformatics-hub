@@ -6,8 +6,7 @@ At current stage, this package can retrieve protein and nucleotide sequences fro
 We will add protein structure retrieval and analysis modules in the future.
 
 ## Bioinformatics-Hub demo site
-https://bioinformatics-hub.vercel.app/
-Created using Bioinformatics-Hub package.
+This website is created using Bioinformatics-Hub package: https://bioinformatics-hub.vercel.app/
 
 ## Outline
 - [Installation](#installation)
@@ -43,7 +42,7 @@ npm install --save bioinformatics-hub
 ## Handle user-provided sequences
 ### Setup bioinformaticsHub object
 ##### Step 1: Import "bioinformatics-hub" package and create a bioinformaticsHub object.
-```
+```js
 const BioinformaticsHub = require("bioinformatics-hub");
 const bioInformaticsHub = new BioinformaticsHub();
 ```
@@ -61,7 +60,7 @@ SLLKASSTLDNLFKELDKNGDGEVSYEEF
 DKDKD
 ```
 These two sequences can be stored in this application as shown below.
-```
+```js
 const inputSequence = ">sequence_id_1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF\n>sequence_id_2\r\nDKDKD";
 
 bioInformaticsHub.setFastaSequences(inputSequence); 
@@ -69,14 +68,14 @@ bioInformaticsHub.setFastaSequences(inputSequence);
 Now, the bioinformaticsHub setup is completed, and user can use bioinformaticsHub to retrieve sequence Ids , sequences, or retrieve these sequences as a javascript object. User can also use bioinformaticsHub to perform sequence analysis, such as predicting motifs in these sequences.
 
 User can retrieve all sequence Ids of the stored sequences using the code below:
-```
+```js
 const sequenceIdArray = bioInformaticsHub.getAllSequenceIds();
 console.log(sequenceIdArray); 
 // Console output: [ 'sequence_id_1', 'sequence_id_2' ]
 ```
 
 User can retrieve a specifc sequence by a sequence Id using the code below:
-```
+```js
 const sequence1 = bioInformaticsHub.getSequenceById("sequence_id_1"); 
 console.log(sequence1); 
 // Console output: SLLKASSTLDNLFKELDKNGDGEVSYEEFF
@@ -87,12 +86,12 @@ console.log(sequence2);
 ```
 
 User can retrive all sequences with Ids as a javascript object using the code below:
-```
+```js
 const sequencesWithIds = bioInformaticsHub.getAllSequencesWithIds(); 
 console.log(sequencesWithIds); 
 ```
 console output:
-``` 
+```js
 { 
   sequence_id_1: 'SLLKASSTLDNLFKELDKNGDGEVSYEEF', 
   sequence_id_2: 'DKDKD' 
@@ -108,10 +107,10 @@ The retrieved sequences can be returned as a string in FASTA format, or be retur
 NCBI Seqeuence Retriever is also a stand alone npm package, named ["ncbi-sequence-retriever"](https://www.npmjs.com/package/ncbi-sequence-retriever).
 
 ### Fetch **protein** sequences from NCBI
-Here are examples to fetch mulitple protein sequences from [NCBI protein databse](https://www.ncbi.nlm.nih.gov/protein/) with user-provided ACCESSION Ids.
+Here are examples to fetch mulitple protein sequences from [NCBI protein database](https://www.ncbi.nlm.nih.gov/protein/) with user-provided ACCESSION Ids.
 
 #### Return a string representive of sequences in FASTA format 
-```
+```js
 const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
 const proteinIds = ["AAA49004.1","AAK64208.1"];  // add upto 100 accession Ids in this array
@@ -120,7 +119,7 @@ ncbiSequenceRetriver.retrieveProteinSequences(proteinIds).then((sequences)=>{
 });
 ```
 The output from above code: 
-```
+```js
 >AAA49004.1 parvalbumin, partial [Gallus gallus]
 FIEEDELKFVLKGFTPDGRDLSDKETKALLAAGDKDGDGKIGVEK
 
@@ -129,7 +128,7 @@ MCAEKSPAEMKSIFQKYAAKEGDPDQLSKEELKLLIQSEFPSLLKASSTLDNLFKELDKNGDGEVSYEEF
 EAFFKKLSQ
 ```
 #### Return sequences as a javascript object
-```
+```js
 const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
 const proteinIds = ["AAA49004.1","AAK64208.1"];  // add upto 100 accession Ids in this array
@@ -138,7 +137,7 @@ ncbiSequenceRetriver.retrieveProteinSequences(proteinIds, "JSON").then((sequence
 });
 ```
 The output from above code: 
-```
+```js
 { 'AAA49004.1 parvalbumin, partial [Gallus gallus]': 
     'FIEEDELKFVLKGFTPDGRDLSDKETKALLAAGDKDGDGKIGVEK',
   'AAK64208.1 calbindin D9k [Mus musculus]':
@@ -150,7 +149,7 @@ The output from above code:
 Here are examples to fetch one mRNA sequence from [NCBI nucleotide databse](https://www.ncbi.nlm.nih.gov/nuccore/) with user-provided ACCESSION Ids:
 
 #### Return a string representive of sequences in FASTA format 
-```
+```js
 const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
 const nucleotidesIds = ["M65068.1"];  // add upto 10 accession Ids in this array
@@ -165,7 +164,7 @@ TTTATTGAGGAGGATGAGCTAAAGTTTGTACTGAAGGGCTTTACCCCAGATGGCAGAGACCTATCAGACA
 AAGAGACAAAGGCTCTTCTGGCTGCTGGAGATAAGGACGGTGATGGCAAAATCGGCGTGGAAAAA
 ```
 #### Return sequences as a javascript object
-```
+```js
 const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
 const nucleotidesIds = ["M65068.1"];  // add upto 10 accession Ids in this array
@@ -174,7 +173,7 @@ ncbiSequenceRetriver.retrieveNucleotideSequences(nucleotidesIds, "JSON").then((s
 });
 ```
 The output from above code: 
-```
+```js
 {
   'M65068.1 Chicken parvalbumin mRNA, partial cds': 
     'TTTATTGAGGAGGATGAGCTAAAGTTTGTACTGAAGGGCTTTACCCCAGATGGCAGAGACCTATCAGACAAAGAGACAAAGGCTCTTCTGGCTGCTGGAGATAAGGACGGTGATGGCAAAATCGGCGTGGAAAAA' 
@@ -186,7 +185,7 @@ The output from above code:
 *On December 1, 2018, NCBI will begin enforcing the use of API keys that will offer enhanced levels of supported access to the E-utilities. After that date, any site (IP address) posting more than 3 requests per second to the E-utilities without an API key will receive an error message. By including an API key, a site can post up to 10 requests per second by default.* More rules about API key can be found in this link: https://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Coming_in_December_2018_API_Key
 
 Sample code with API key as the third input arguement:
-```
+```js
 const {ncbiSequenceRetriver} = require ("bioinformatics-hub/modules");
 
 const nucleotidesIds = ["M65068.1"];  
@@ -233,7 +232,7 @@ The sample pattern for prediction:
 6. call predict() method and the prediction results will be returned.
 
 The example shown below demostrates the prediction workflow for predicting one user-defined motif (named "patternId_1") in one protein sequence (named "seq1").
-```
+```js
 const BioinformaticsHub = require("bioinformatics-hub");
 
 const bioInformaticsHub = new BioinformaticsHub();
@@ -243,7 +242,7 @@ bioInformaticsHub.setFastaSequences(">seq1\nSLLKASSTLDNLFKELDKNGDGEVSYEEF") // s
                  .predict();
 ```
 Execution of above code will find all matches of the given pattern(patternId_1) in the given sequence(seq1). The expected output is shown below:
-```
+```js
 [
   { 
     sequenceId: 'seq1',
@@ -269,7 +268,7 @@ Execution of above code will find all matches of the given pattern(patternId_1) 
 ### Predict motifs in protein or nucleotide sequences based on NCBI ACCESSION ids
 The ncbiMotifScanner module in BioinformaticsHub can predict/scan motifs on sequences if user provides the NCBI ACCESSION ids and patterns.
 #### Scan/predict protein sequnces based on NCBI accession ids
-```
+```js
 const {ncbiMotifScanner} = require("bioinformatics-hub/modules");
 
 const sequenceIdArray = ["CAA44792.1", "EEB16923.1"];
@@ -285,7 +284,7 @@ ncbiMotifScanner.scanProteinMotifsWithNcbiIds(sequenceIdArray, patterns).then((v
 ```
 
 #### Scan/predict nucloetide sequnces based on NCBI accession ids
-```
+```js
 const {ncbiMotifScanner} = require("bioinformatics-hub/modules");
 
 const sequenceIdArray = ["NM_009788.4"];
@@ -336,7 +335,7 @@ This application has build in functions to validate and clean up the input seque
   Comment lines (started with ";") in a FASTA sequence will be removed automatically.
 
 Based on above rules, "Sample sequence 3" and "Sample sequence 4" shown below will have the identical sequences when saved in BioinformaticsHub application.
-```
+```js
 >Sample sequence 3
 ; this is a comment line, will be removed by CommentLineRemover;
 ; Numbers and blanks in below sequence will also be removed 
