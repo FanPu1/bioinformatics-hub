@@ -349,8 +349,10 @@ CTCCTGAGGAACTGAAGAGGATTTTTGAAAAATATGCAGCCAAAGAAGGTGATCCAGACCAGTTGTCAAA
 ```
 
 ## Version changes
-- 1.4.0
-  - **New feature:** Added method to translate nucleotide sequences to protein sequences. 
+- 1.4.0-SNAPSHOT and 1.4.1-SNAPSHOT
+  - Bug fix.
+  - Update README.md
+  - **New feature:** Added method to translate nucleotide sequences to protein sequences (in progress). 
   - **New feature:** Check if nucleotide or protein sequence contains invalid characters.
 - 1.3.4
   - Fixed a bug related with making request using http instead of https by update ncbi-sequence-retriever version.

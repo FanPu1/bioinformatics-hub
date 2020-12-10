@@ -1,6 +1,6 @@
 {
   "name": "bioinformatics-hub",
-  "version": "1.4.0-SNAPSHOT",
+  "version": "1.4.1-SNAPSHOT",
   "description": "an open source bioinformatics package for retrieving, processing and analyzing the sequences and structures of biomolecules, such as proteins and nucleotides.",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "DNA",
     "RNA",
     "protein",
-    "squence",
+    "sequence",
     "analysis",
     "prediction",
     "bioinformatics",
