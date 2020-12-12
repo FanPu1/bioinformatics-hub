@@ -19,7 +19,7 @@ class ReverseComplementAssistant {
 
   /**
    * Returns a complementary sequence of a nucleotide sequence. If the sequence contains a character other than 
-   * a, t, u, c, g, A, T, U, C, G, -, or *, then an error will be thrown. blanks and change line character will be 
+   * a, t, u, c, g, A, T, U, C, G, N, n, -, or *, then an error will be thrown. blanks and change line character will be 
    * treated as invalid letters.
    * Example: 
    *  input: AAATTG
@@ -60,7 +60,7 @@ class ReverseComplementAssistant {
 
   /**
    * Returns a reverse complementary sequence of a nucleotide sequence. If the sequence contains a character other than 
-   * a, t, u, c, g, A, T, U, C, G, -, or *, then an error will be thrown. blanks and change line character will be 
+   * a, t, u, c, g, A, T, U, C, G, N, n, -, or *, then an error will be thrown. blanks and change line character will be 
    * treated as invalid letters.
    * Example: 
    *  input: AAATTG
