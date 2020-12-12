@@ -188,7 +188,7 @@ test("test setPatterns(patterns) method throw error when input is invalid null o
 /**
  * Test predict() method.
  */
-test("test translatePatternObject(string) method", ()=>{
+test("test predict method", ()=>{
   let inputPatternObject = {
     "pattern1": {
       pattern: "[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]",
@@ -198,8 +198,8 @@ test("test translatePatternObject(string) method", ()=>{
     "pattern2": "<[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]"
   };
   
-  const app = new BioinformaticsApp("protein").setFastaSequences(">seq_id_1 \n DDDKEGGDDDKD \n >seq_id_2 \n TTTTTTT");
-  const predictionOutput = app.getPredictionAssistant().setPatterns(inputPatternObject).predict();
+  let app = new BioinformaticsApp("protein").setFastaSequences(">seq_id_1 \n DDDKEGGDDDKD \n >seq_id_2 \n TTTTTTT");
+  let predictionOutput = app.getPredictionAssistant().setPatterns(inputPatternObject).predict();
   expect(predictionOutput.length).toBe(2);
   // assert prediction for seq_id_1
   expect(predictionOutput[0].sequenceId).toBe("seq_id_1");
@@ -218,4 +218,31 @@ test("test translatePatternObject(string) method", ()=>{
   expect(predictionOutput[1].sequence).toBe("TTTTTTT");
   expect(predictionOutput[1].contained_motifs).toEqual([]);
   // console.log(predictionOutput[0].motifs.pattern1);
+
+  predictionOutput = app.getPredictionAssistant().setPatterns([]).predict();
+  expect(predictionOutput.length).toBe(0);
+});
+
+/**
+ * Test predict() method throw 
+ */
+test("test predict method throws an Error", ()=>{
+  const inputPatternObject = {
+    "pattern1": {
+      pattern: "[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]",
+      description: "This is a description",
+      url: "www.test.io"
+    }, 
+    "pattern2": "<[D]-x-[D,N,S]-{F,L,I,V,W,Y}-[D,N,E,S,T,G]"
+  };
+  
+  expect(()=>{
+    let app = new BioinformaticsApp("protein");
+    app.getPredictionAssistant().setPatterns(inputPatternObject).predict();
+  }).toThrow("No FASTA sequence. call setFastaSequences(fastaString) first.");
+
+  expect(()=>{
+    let app = new BioinformaticsApp("protein").setFastaSequences(">seq_id_1 \n DDDKEGGDDDKD \n >seq_id_2 \n TTTTTTT");
+    app.getPredictionAssistant().setPatterns(null).predict();
+  }).toThrow("The input patterns cannot be null or undefined.");
 });

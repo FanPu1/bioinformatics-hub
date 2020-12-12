@@ -1,4 +1,5 @@
 const sequenceValidator = require("./../../util/SequenceValidator");
+const FastaSeq = require("./../FastaSeq");
 
 /**
  * A class contains all methods related with nucleotide sequence analysis.
@@ -18,8 +19,8 @@ class NucleotideSequenceAssistant {
    * Check if the input nucleotide sequences contains invalid characters. 
    * Valid characters are: A, T, C, G, U, *, _
    */
-  containsInvalidChacters() {
-    if (!this.fastaSequenceObject) {
+  containsInvalidCharacters() {
+    if (!(this.fastaSequenceObject instanceof FastaSeq)) {
       throw new Error("FASTA sequence is not setup properly.");
     }
 

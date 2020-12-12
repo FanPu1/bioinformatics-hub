@@ -9,7 +9,7 @@ class SequenceValidator {
    * @param {String} sequence. A nucleotide sequence string containing only a-z, A-Z, * and - characters.
    * @returns true if all the characters in this sequence are valid, false otherwise.
    */
-  isNucleotideSequenceValid (sequence) {
+  static isNucleotideSequenceValid (sequence) {
     const validCharacters = new Set(["A", "U", "T", "C", "G", "-", "*"]);
 
     for (let character of sequence.toUpperCase()) {
@@ -26,7 +26,7 @@ class SequenceValidator {
    * @param {String} sequence. A nucleotide sequence string containing only a-z, A-Z, * and - characters.
    * @returns true if all the characters in this sequence are valid, false otherwise.
    */
-  isProteinSequenceValid (sequence) {
+  static isProteinSequenceValid (sequence) {
     const validCharacters = new Set(["G", "A", "L", "M", "F", "W", "K", "Q", "E", "S",
       "P", "V", "I", "C", "Y", "H", "R", "N", "D", "T", "-", "*"]);
 
@@ -40,4 +40,4 @@ class SequenceValidator {
   }
 }
 
-module.exports = new SequenceValidator();
+module.exports = SequenceValidator;

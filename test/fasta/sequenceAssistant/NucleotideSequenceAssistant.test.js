@@ -16,9 +16,9 @@ test("test constructor method", ()=>{
 });
 
 /**
- * Test containsInvalidChacters() method
+ * Test containsInvalidCharacters() method
  */
-test("Test containsInvalidChacters() method", ()=>{
+test("Test containsInvalidCharacters() method", ()=>{
   const fastaSeqString = ">seq1 \n AAAATTTTaCgGtc \n >seq2 \n XASSSDSFA";
   const fastaSequenceObject = new FastaSeq("DNA", fastaSeqString);
   assistant = new NucleotideSequenceAssistant(fastaSequenceObject);
@@ -26,5 +26,11 @@ test("Test containsInvalidChacters() method", ()=>{
     "seq1" : false, 
     "seq2": true
   };
-  expect(assistant.containsInvalidChacters()).toEqual(expected);
+  expect(assistant.containsInvalidCharacters()).toEqual(expected);
+
+  expect(()=>{
+    const invalidFastaSequenceObject = "not an object";
+    assistant = new NucleotideSequenceAssistant(invalidFastaSequenceObject);
+    assistant.containsInvalidCharacters();
+  }).toThrow("FASTA sequence is not setup properly.");
 });

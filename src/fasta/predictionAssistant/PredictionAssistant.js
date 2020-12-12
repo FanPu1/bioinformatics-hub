@@ -204,10 +204,9 @@ class PredictionAssistant {
    * @throws error if FASTA sequence is fastaSequenceObject or patternsWithIds in {PredictionAssistant} object is null or not defined.
    */
   predict(){
-    if (!this.fastaSequenceObject) {throw new Error("FASTA sequence is not setup properly.");}
     if (!this.patternsWithIds) {throw new Error("Motif (pattern) is not setup properly");}
+    
     const predictionResultArray = [];
-
     // retrieve FASTA sequences Ids from fastaSequenceObject and stored in an array.
     const fastaSeqIdArray = this.fastaSequenceObject.getAllSequenceIds();
     // retrieve Pattern Ids from {PatternMap} stored in patternsWithIds.
