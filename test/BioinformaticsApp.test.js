@@ -2,10 +2,9 @@ const BioinformaticsApp = require("./../index");
 const DataType = require("./../src/constants/DataType");
 const FastaSeq = require("./../src/fasta/FastaSeq");
 const PredictionAssistant = require("./../src/fasta/predictionAssistant/PredictionAssistant");
+const ProteinSequenceAssistant = require("./../src/fasta/sequenceAssistant/ProteinSequenceAssistant");
+const NucleotideSequenceAssistant = require("./../src/fasta/sequenceAssistant/NucleotideSequenceAssistant");
 
-/**
- * Test constructor method can set dataType attributes properly
- */
 test ("test constructor", () => {
   let app = new BioinformaticsApp("DNA");
   expect(app.dataType).toBe(DataType.DNA);
@@ -25,9 +24,6 @@ test ("test constructor", () => {
   expect(app.dataType).toBe("all");
 });
 
-/**
- * Test setDataType(dataType) method.
- */
 test("test setDataType", ()=>{
   const app = new BioinformaticsApp();
   expect(app.dataType).toBe(null);
@@ -36,9 +32,7 @@ test("test setDataType", ()=>{
   app.setDataType("unknown");
   expect(app.dataType).toBe(DataType.UNKNOWN);
 });
-/**
- * Test constructor method can set dataType attributes properly, when input is a lowercase string
- */
+
 test ("test constructor with lowercase string input", () => {
   let app = new BioinformaticsApp("dna");
   expect(app.dataType).toBe(DataType.DNA);
@@ -50,18 +44,12 @@ test ("test constructor with lowercase string input", () => {
   expect(app.dataType).toBe(DataType.PDB);
 });
 
-/**
- * Test constructor method throw error when input data type string is invalid.
- */
 test ("test constructor with lowercase string input", () => {
   expect(()=>{
     new BioinformaticsApp("unknown string");
   }).toThrow("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', 'nucleotides','PDB', 'all', or 'unknown'.");
 });
 
-/**
- * Test validateAndSetDataType method return expected {string} of data type.
- */
 test ("test validateAndSetDataType method", () => {
   const app = new BioinformaticsApp("DNA");
   expect(app.validateAndSetDataType("DNA")).toBe(DataType.DNA);
@@ -73,9 +61,6 @@ test ("test validateAndSetDataType method", () => {
   }).toThrow("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', 'nucleotides','PDB', 'all', or 'unknown'.");
 });
 
-/**
- * Test validateAndSetDataType method throw error when input data type String is invalid.
- */
 test ("test validateAndSetDataType method with invalid input", () => {
   const app = new BioinformaticsApp("DNA");
   expect(()=> {
@@ -83,9 +68,6 @@ test ("test validateAndSetDataType method with invalid input", () => {
   }).toThrow("Invalid dataType. dataType must be 'DNA', 'RNA', 'protein', 'nucleotides','PDB', 'all', or 'unknown'.");
 });
 
-/**
- * Test that setFastaSequences returns expected object.
- */
 test("test setFastaSequences returns expected object", () => {
   const app = new BioinformaticsApp("protein");
   const fastaSequencesString = ">fake sequence1 \nDKDGNGY\nDKDGNGY >sequence2\nGGGGNGY"; 
@@ -98,10 +80,6 @@ test("test setFastaSequences returns expected object", () => {
   expect(app.getAllSequencesWithIds()["sequence2"]).toEqual("GGGGNGY");
 });
 
-/**
- * test that an error is throw when the input string in setFastaSequences() method is a 
- * null or undefined.
- */
 test ("test input string for setFastaSequences method is a null or undefined", ()=>{
   const app = new BioinformaticsApp("dna");
   const fastaSequencesString1 = null; 
@@ -118,10 +96,6 @@ test ("test input string for setFastaSequences method is a null or undefined", (
   }).toThrow("The input FASTA sequence cannot be null or undefined.");
 });
 
-/**
- * test that an error is throw when the input string in setFastaSequences() method is a 
- * blank or empty string.
- */
 test ("test input string for setFastaSequences method is a blank string", ()=>{
   const app = new BioinformaticsApp("protein");
   const fastaSequencesString1 = ""; 
@@ -138,9 +112,6 @@ test ("test input string for setFastaSequences method is a blank string", ()=>{
   }).toThrow("The input FASTA sequence cannot be empty or blank.");
 });
 
-/**
- * Test different conditions in getPredictionAssistant method.
- */
 test("test getPredictionAssistant method", ()=>{
   const app = new BioinformaticsApp("protein");
   const expectedFastaSequenceObject = new FastaSeq(DataType.PROTEIN, "DKDGNGY");
@@ -149,4 +120,24 @@ test("test getPredictionAssistant method", ()=>{
     app.getPredictionAssistant();
   }).toThrow("No FASTA sequence. call setFastaSequences(fastaString) first.");
   expect(app.setFastaSequences("DKDGNGY").getPredictionAssistant()).toEqual(expectedPredictionAssistant);
+});
+
+test("test getProteinSequenceAssistant method", ()=>{
+  const app = new BioinformaticsApp("protein");
+  const expectedFastaSequenceObject = new FastaSeq(DataType.PROTEIN, "DKDGNGY");
+  const expectedAssistant = new ProteinSequenceAssistant(expectedFastaSequenceObject);
+  expect(()=>{
+    app.getProteinSequenceAssistant();
+  }).toThrow("No FASTA sequence. call setFastaSequences(fastaString) first.");
+  expect(app.setFastaSequences("DKDGNGY").getProteinSequenceAssistant()).toEqual(expectedAssistant);
+});
+
+test("test getNucleotideSequenceAssistant method", ()=>{
+  const app = new BioinformaticsApp();
+  const expectedFastaSequenceObject = new FastaSeq(null, "AAATTT");
+  const expectedAssistant = new NucleotideSequenceAssistant(expectedFastaSequenceObject);
+  expect(()=>{
+    app.getNucleotideSequenceAssistant();
+  }).toThrow("No FASTA sequence. call setFastaSequences(fastaString) first.");
+  expect(app.setFastaSequences("AAATTT").getNucleotideSequenceAssistant()).toEqual(expectedAssistant);
 });

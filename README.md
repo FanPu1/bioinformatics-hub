@@ -25,11 +25,10 @@ This website is created using Bioinformatics-Hub package: https://bioinformatics
   - [Predict motifs in user-provided sequences](#predict-motifs-in-protein-or-nucleotide-sequences-with-user-provided-sequences)
   - [Predict motifs in sequences with given NCBI ACCESSION Ids](#predict-motifs-in-protein-or-nucleotide-sequences-based-on-ncbi-accession-ids)
 - Routine bioinformatics tools for protein/nucleotide sequences
-  - get Reverse complementary sequences (under development)
+  - Check if the nucleotide or protein sequences contains invalid characters
+  - Get Reverse complementary sequences
   - Restriction sites detector (under development)
-  - Nucleotide to protein translator (under development)
-  - translate DNA/RNA sequences to protein sequences
-  - check if the nucleotide or protein sequences contains invalid characters.
+  - Translate DNA/RNA sequences to protein sequences
 - PDB module: retrieve and analyze protein structures (future task)
   - Retrieve protein structure from protein data bank (future task)
   - Retrieve information from protein structure (future task)
@@ -348,12 +347,125 @@ AAACTCCTCTTTGATTCTTCTAGCTGTTTCACTATTGGGCAACCAGACACCAGAATGAGTACTAAAAAGT
 CTCCTGAGGAACTGAAGAGGATTTTTGAAAAATATGCAGCCAAAGAAGGTGATCCAGACCAGTTGTCAAA
 ```
 
+## Routine bioinformatics tools for protein/nucleotide sequences
+Bioinformatics-hub contains a few methods (tools) which can be used for the routine sequence manipulation and analysis.
+### Check if the nucleotide or protein sequences contains invalid characters
+Here is a demo on how to use Bioinformatics-hub to check if the input protein sequences or nucleotide sequences contain invalid letters.
+
+Valid letters in protein sequence include "*", "-", "X", and all single letter symbol of amino acids. Letters can be upper case or lower case.
+
+Valid letters in protein sequence include "*", "-", "X", "N", "A", "T", "C", "G", and "U". Letters can be upper case or lower case.
+- Check if protein sequences contains invalid letters
+  ```js
+  // input FASTA sequences
+  >seq1
+  DKD GNGY
+  >seq2
+  BBCKKK
+  ```
+  ```js
+  const BioinformaticsHub = require("bioinformatics-hub");
+  const bioinformaticsHub = new BioinformaticsHub();
+
+  const proteinSequences = ">seq1\nDKD GNGY\n>seq2\nBBCKKK";
+  const output = bioinformaticsHub.setFastaSequences(proteinSequences)
+                                  .getProteinSequenceAssistant()
+                                  .containsInvalidCharacters();
+  console.log(output);
+  // console output: { seq1: false, seq2: true }
+  ```
+- Check if nucleotide sequences contains invalid letters
+  ```js
+  // input sequences in FASTA format
+  >seq1
+  AAAATTTAAAAA
+  >seq2
+  BBAATTCCGGTCA
+  ```
+  ```js
+  const BioinformaticsHub = require("bioinformatics-hub");
+  const bioinformaticsHub = new BioinformaticsHub();
+
+  const dnaSequences = ">seq1\nAAAATTTAAAAA \n>seq2\nBBAATTCCGGTCA";
+  const output = bioinformaticsHub.setFastaSequences(dnaSequences)
+                                  .getNucleotideSequenceAssistant()
+                                  .containsInvalidCharacters();
+  console.log(output);
+  // console output: { seq1: false, seq2: true }
+  ```
+
+### Get Reverse complementary sequences
+Bioinformatics-hub has methods to get reverse, complementary, and reverse complementary sequences from multiple input sequences in FASTA format. An error will throw when get complementary, reverse-complementary sequences if any of the input sequences contains invalid letters. Only the following letters are considered as valid letters for a nucleotide sequence: "*", "-", "X", "N", "A", "T", "C", "G", and "U". Letters can be upper case or lower case. 
+```js
+// input sequence in FASTA format
+>seq1
+AAAAUTTGCNN
+```
+```js
+const BioinformaticsHub = require("bioinformatics-hub");
+const bioinformaticsHub = new BioinformaticsHub();
+
+const dnaSequences = ">seq1\nAAAAUTTGCNN";
+
+let output = bioinformaticsHub.setFastaSequences(dnaSequences) // same sequence only need to set once
+                              .getNucleotideSequenceAssistant()
+                              .getReverseSequences();
+console.log(output);
+// console output: { seq1: 'NNCGTTUAAAA' }
+
+output = bioinformaticsHub.getNucleotideSequenceAssistant()
+                          .getComplementarySequences();
+console.log(output);
+// console output: { seq1: 'TTTTAAACGNN' }
+
+output = bioinformaticsHub.getNucleotideSequenceAssistant()
+                          .getReverseComplementarySequences();
+console.log(output);
+// console output: { seq1: 'NNGCAAATTTT' }
+```
+
+### Translate DNA/RNA sequences to protein sequences
+Bioinformatics-hub can be used to get used to translate multiple DNA/RNA sequences into protein sequences. Each nucleotide sequence will produce 6 proteins sequences. Three protein sequences are translated from 5' terminal and three protein sequences are translated from 3' terminal (reverse complementary sequence). An error will throw when using translateToProtein() method if any of the input sequences contains invalid letters. Only the following letters are considered as valid letters for a nucleotide sequence: "*", "-", "X", "N", "A", "T", "C", "G", and "U". Letters can be upper case or lower case.
+```js
+// input sequences in FASTA format
+>seq1
+AAAAUTTGCNN
+>seq2
+xxxxxxactatgaattattttgagcataacggtgtattaatgaaatattttc
+```
+```js
+const BioinformaticsHub = require("bioinformatics-hub");
+const bioinformaticsHub = new BioinformaticsHub();
+
+const dnaSequences = ">seq1\nAAAAUTTGCNN\n>seq2\nxxxxxxactatgaattattttgagcataacggtgtattaatgaaatattttc";
+let output = bioinformaticsHub.setFastaSequences(dnaSequences)
+                              .getNucleotideSequenceAssistant()
+                              .translateToProtein();
+console.log(output);
+// console output:
+{ seq1:
+   { '5\' to 3\' Frame 1': 'KIC',
+     '5\' to 3\' Frame 2': 'KFA',
+     '5\' to 3\' Frame 3': 'NLX',
+     '3\' to 5\' Frame 1': 'XQI',
+     '3\' to 5\' Frame 2': 'XKF',
+     '3\' to 5\' Frame 3': 'ANF' },
+  seq2:
+   { '5\' to 3\' Frame 1': 'XXTMNYFEHNGVLMKYF',
+     '5\' to 3\' Frame 2': 'XXL-IILSITVY--NIF',
+     '5\' to 3\' Frame 3': 'XXYELF-A-RCINEIF',
+     '3\' to 5\' Frame 1': 'ENISLIHRYAQNNS-XX',
+     '3\' to 5\' Frame 2': 'KIFH-YTVMLKIIHSXX',
+     '3\' to 5\' Frame 3': 'KYFINTPLCSK-FIXX' } }
+```
+
 ## Version changes
-- 1.4.0-SNAPSHOT and 1.4.1-SNAPSHOT
+- 1.4.1
   - Bug fix.
   - Update README.md
-  - **New feature:** Added method to translate nucleotide sequences to protein sequences (in progress). 
-  - **New feature:** Check if nucleotide or protein sequence contains invalid characters.
+  - **New feature:** Added method to translate nucleotide sequences to protein sequences. 
+  - **New feature:** Check if nucleotide or protein sequences contain invalid characters.
+  - **New feature:** get reverse, complementary, and reverse complementary sequences.
 - 1.3.4
   - Fixed a bug related with making request using http instead of https by update ncbi-sequence-retriever version.
 - 1.3.3

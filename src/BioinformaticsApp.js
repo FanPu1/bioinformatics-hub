@@ -1,6 +1,8 @@
 const DataType = require("./constants/DataType");
 const FastaSeq = require("./fasta/FastaSeq");
 const PredictionAssistant = require("./fasta/predictionAssistant/PredictionAssistant");
+const NucleotideSequenceAssistant = require("./fasta/sequenceAssistant/NucleotideSequenceAssistant");
+const ProteinSequenceAssistant = require("./fasta/sequenceAssistant/ProteinSequenceAssistant");
 
 class BioinformaticsApp {
   
@@ -88,7 +90,8 @@ class BioinformaticsApp {
   }
 
   /**
-   * Retrieves a {PredictionAssistant} object with {FastaSeq} being set. 
+   * Retrieves a {PredictionAssistant} object with {FastaSeq} being set.
+   * @returns a {PredictionAssistant} object with {FastaSeq} being set.
    * @throws an error if {FastaSeq} in {BioinformaticsApp} object is null.
    */
   getPredictionAssistant(){
@@ -96,6 +99,30 @@ class BioinformaticsApp {
       throw new Error ("No FASTA sequence. call setFastaSequences(fastaString) first.");
     }
     return new PredictionAssistant(this.fastaSequenceObject);
+  }
+
+  /**
+   * Retrieves a {NucleotideSequenceAssistant} object with {FastaSeq} being set.
+   * @returns a {NucleotideSequenceAssistant} object with {FastaSeq} being set. 
+   * @throws an error if {FastaSeq} in {BioinformaticsApp} object is null.
+   */
+  getNucleotideSequenceAssistant(){
+    if (!this.fastaSequenceObject) {
+      throw new Error ("No FASTA sequence. call setFastaSequences(fastaString) first.");
+    }
+    return new NucleotideSequenceAssistant(this.fastaSequenceObject);
+  }
+
+  /**
+   * Retrieves a {ProteinSequenceAssistant} object with {FastaSeq} being set.
+   * @returns a {ProteinSequenceAssistant} object with {FastaSeq} being set.
+   * @throws an error if {FastaSeq} in {BioinformaticsApp} object is null.
+   */
+  getProteinSequenceAssistant(){
+    if (!this.fastaSequenceObject) {
+      throw new Error ("No FASTA sequence. call setFastaSequences(fastaString) first.");
+    }
+    return new ProteinSequenceAssistant(this.fastaSequenceObject);
   }
 
   /**
@@ -124,7 +151,6 @@ class BioinformaticsApp {
   getAllSequencesWithIds(){
     return this.fastaSequenceObject.getAllSequencesWithIds();
   }
-
 }
 
 module.exports = BioinformaticsApp;
