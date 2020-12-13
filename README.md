@@ -32,6 +32,7 @@ This website is created using Bioinformatics-Hub package: https://bioinformatics
 - PDB module: retrieve and analyze protein structures (future task)
   - Retrieve protein structure from protein data bank (future task)
   - Retrieve information from protein structure (future task)
+- [Version Changes](#version-changes)
 
 ## Installation
 Running this package requires [nodeJS](https://nodejs.org/en/) environment. Run the below commend to install this package into your javascript project.
@@ -463,11 +464,13 @@ console.log(output);
 
 ## Version changes
 - 1.4.1
-  - Bug fix.
-  - Update README.md
-  - **New feature:** Added method to translate nucleotide sequences to protein sequences. 
-  - **New feature:** Check if nucleotide or protein sequences contain invalid characters.
-  - **New feature:** get reverse, complementary, and reverse complementary sequences.
+  - Fixed bugs.
+  - Updated README.md
+  - **New feature:** Added a method to translate nucleotide sequences to protein sequences. 
+  - **New feature:** Added a method to check if nucleotide or protein sequences contain invalid characters.
+  - **New feature:** Add methods to get reverse, complementary, and reverse complementary sequences.
+- 1.4.0-SNAPSHOT and 1.4.1-SNAPSHOT
+  - Exploring new features and bug fix.
 - 1.3.4
   - Fixed a bug related with making request using http instead of https by update ncbi-sequence-retriever version.
 - 1.3.3
@@ -475,7 +478,7 @@ console.log(output);
 - 1.3.2
   - Fixed a bug related with an error when using react.
 - 1.3.1
-  - bug fix.
+  - Bug fix.
 - 1.3.0
   - **New Feature:** Given an array of ACCESSION ids from NCBI protein or nucleotide databases, ncbiMotifScanner module can predict/sca motifs in these sequences.
 - 1.2.0
@@ -485,12 +488,12 @@ console.log(output);
 - 1.1.1
   - Updated README.MD
 - 1.1.0
-  - Read multiple protein or nucleotide sequences.
-  - Remove any numbers, blanks, and comment line (line start with ";") in each sequence.
-  - Retrieve a specific sequence by sequenceId.
-  - Retrieve all sequence Ids.
-  - Retrieve all sequences as javascript object indexed by sequence Ids.
-  - Scan and predict protein/nucleotide motifs in multiple sequences provided by user in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format.
+  - **New feature:** Read multiple protein or nucleotide sequences.
+  - **New feature:** Remove any numbers, blanks, and comment line (line start with ";") in each sequence.
+  - **New feature:** Retrieve a specific sequence by sequenceId.
+  - **New feature:** Retrieve all sequence Ids.
+  - **New feature:** Retrieve all sequences as javascript object indexed by sequence Ids.
+  - **New feature:** Scan and predict protein/nucleotide motifs in multiple sequences provided by user in [FASTA](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp) format.
 
 ## For internal Bioinformatics-Hub developers
 ### Test
