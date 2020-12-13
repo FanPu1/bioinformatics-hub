@@ -12,7 +12,7 @@ This website is created using Bioinformatics-Hub package: https://bioinformatics
 - [Installation](#installation)
 - [Handle user provided sequences](#handle-user-provided-sequences)
   - [Setup bioinformaticsHub object](#setup-bioinformaticshub-object)
-  - [Set/store sequences in BioinformaticsHub application](#step-2-store-user-provided-sequences-into-bioinformaticshub-object)
+  - [Set/store sequences in BioinformaticsHub application](#handle-user-provided-sequences)
   - Get all sequence Ids
   - Get sequence by Id
   - Get all sequences with Ids as a key in to Javascript object
