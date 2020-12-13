@@ -25,11 +25,11 @@ This website is created using Bioinformatics-Hub package: https://bioinformatics
   - [Predict motifs in user-provided sequences](#predict-motifs-in-protein-or-nucleotide-sequences-with-user-provided-sequences)
   - [Predict motifs in sequences with given NCBI ACCESSION Ids](#predict-motifs-in-protein-or-nucleotide-sequences-based-on-ncbi-accession-ids)
 - Routine bioinformatics tools for protein/nucleotide sequences
-  - TM (melting temperature) calculator (under development)
-  - Reverse complement (under development)
+  - get Reverse complementary sequences (under development)
   - Restriction sites detector (under development)
-  - Scramble sequence generator (under development)
   - Nucleotide to protein translator (under development)
+  - translate DNA/RNA sequences to protein sequences
+  - check if the nucleotide or protein sequences contains invalid characters.
 - PDB module: retrieve and analyze protein structures (future task)
   - Retrieve protein structure from protein data bank (future task)
   - Retrieve information from protein structure (future task)

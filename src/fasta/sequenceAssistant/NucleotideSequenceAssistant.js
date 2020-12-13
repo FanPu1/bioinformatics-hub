@@ -21,8 +21,8 @@ class NucleotideSequenceAssistant {
   }
 
   /**
-   * Check if the input nucleotide sequences contains invalid characters. 
-   * Valid characters are: A, T, C, G, U, *, _
+   * Check if the input nucleotide sequences contain invalid characters. 
+   * Valid characters are: A, T, C, G, U, *, -, X, N, a, t, c, g, u, x, and n.
    * @returns a javascript object indicating whether each sequence is valid or not
    */
   containsInvalidCharacters() {
@@ -55,7 +55,7 @@ class NucleotideSequenceAssistant {
    * Get the complementary sequences.
    * @returns a javascript object using sequence Id as keys and complementary sequences as values.
    * @throws an error if any of the sequence contains invalid letters. 
-   *  Valid letters: A, U, T, C, G, *, -, a, u, t, c, g. 
+   *  Valid letters: A, U, T, C, G, *, -, a, u, t, c, g, X, x, N, n.
    */
   getComplementarySequences() {
     const result = {};
@@ -76,7 +76,7 @@ class NucleotideSequenceAssistant {
    * Get the reversed complementary sequences.
    * @returns a javascript object using sequence Id as keys and reverse complementary sequences as values.
    * @throws an error if any of the sequence contains invalid letters. 
-   *  Valid letters: A, U, T, C, G, *, -, a, u, t, c, g. 
+   *  Valid letters: A, U, T, C, G, *, -, a, u, t, c, g, X, x, N, n.
    */
   getReverseComplementarySequences() {
     const result = {};
@@ -93,6 +93,9 @@ class NucleotideSequenceAssistant {
     return result;
   }
 
+  /**
+   * Translate
+   */
   translateToProtein() {
     const result = {};
     const sequenceMap = this.fastaSequenceObject.seqMap; 
