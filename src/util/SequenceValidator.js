@@ -10,7 +10,7 @@ class SequenceValidator {
    * @returns true if all the characters in this sequence are valid, false otherwise.
    */
   static isNucleotideSequenceValid (sequence) {
-    const validCharacters = new Set(["A", "U", "T", "C", "G", "-", "*", "N"]);
+    const validCharacters = new Set(["A", "U", "T", "C", "G", "-", "*", "N", "X"]);
 
     for (let character of sequence.toUpperCase()) {
       if (!validCharacters.has(character)) {
@@ -28,7 +28,7 @@ class SequenceValidator {
    */
   static isProteinSequenceValid (sequence) {
     const validCharacters = new Set(["G", "A", "L", "M", "F", "W", "K", "Q", "E", "S",
-      "P", "V", "I", "C", "Y", "H", "R", "N", "D", "T", "-", "*"]);
+      "P", "V", "I", "C", "Y", "H", "R", "N", "D", "T", "-", "*", "X"]);
 
     for (let character of sequence) {
       if (!validCharacters.has(character.toUpperCase())) {

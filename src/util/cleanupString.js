@@ -1,6 +1,6 @@
 /**
  * Remove numbers and blanks from the fasta sequence. If the sequence contains characters
- * other than A-Z, a-z, "*"", "-"", an exception will be throw.
+ * other than A-Z, a-z, "*", "-", an exception will be throw.
  * FASTA sequence format: 
  * https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp
  * @param {String} sequence, a DNA/RNA or protein sequence to be clean up. 

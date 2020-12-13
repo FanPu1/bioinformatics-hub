@@ -1,6 +1,7 @@
 const sequenceValidator = require("./../../util/SequenceValidator");
 const FastaSeq = require("./../FastaSeq");
 const ReverseComplementAssistant = require("./ReverseComplementAssistant");
+const Translator = require("./../../util/Translator");
 
 /**
  * A class contains all methods related with nucleotide sequence analysis.
@@ -13,7 +14,7 @@ class NucleotideSequenceAssistant {
    */
   constructor(fastaSequenceObject) {
     if (!(fastaSequenceObject instanceof FastaSeq)) {
-      throw new Error("FASTA sequence is not setup properly.");
+      throw new Error("FASTA sequence object is not setup properly.");
     }
 
     this.fastaSequenceObject = fastaSequenceObject;
@@ -89,6 +90,17 @@ class NucleotideSequenceAssistant {
       result[key] = ReverseComplementAssistant.reverseComplementarySequence(value.sequence);
     });
 
+    return result;
+  }
+
+  translateToProtein() {
+    const result = {};
+    const sequenceMap = this.fastaSequenceObject.seqMap; 
+  
+    sequenceMap.forEach((value, key)=>{
+      result[key] = Translator.translateToProtein(value.sequence);
+    });
+  
     return result;
   }
 }

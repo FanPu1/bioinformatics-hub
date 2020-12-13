@@ -15,11 +15,12 @@ const nucleotideCodon = Object.freeze({
   TTT:"F", TTC:"F", TTY:"F",
   CCT:"P", CCC:"P", CCA:"P", CCG:"P", CCN:"P",
   TCT:"S", TCC:"S", TCA:"S", TCG:"S", AGT:"S", AGC:"S", TCN:"S", AGY:"S",
-  ACT:"T", ACC:"T", ACA:"T", ACG:"T",ACN:"T",
+  ACT:"T", ACC:"T", ACA:"T", ACG:"T", ACN:"T",
   TGG:"W",
   TAT:"Y", TAC:"Y", TAY:"Y",
-  GTT:"V", GTC:"V", GTA:"V", GTG:"V",GTN:"V",
-  TAA:"-", TGA:"-", TAG:"-",TAR:"-", TRA:"-"
+  GTT:"V", GTC:"V", GTA:"V", GTG:"V", GTN:"V",
+  TAA:"-", TGA:"-", TAG:"-", TAR:"-", TRA:"-",
+  NNN:"X"
 });
 
 module.exports = nucleotideCodon;
