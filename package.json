@@ -37,7 +37,8 @@
   "homepage": "https://bioinformatics-hub.vercel.app/",
   "devDependencies": {
     "eslint": "^7.4.0",
-    "jest": "^26.1.0"
+    "jest": "^26.1.0",
+    "node-notifier": ">=8.0.1"
   },
   "dependencies": {
     "axios": "^0.19.2",

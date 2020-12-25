@@ -26,5 +26,5 @@ test("test string contains illegal characters", ()=> {
   inputString = "    \n    \r     ";
   expect(()=>{
     cleanup(inputString);
-  }).toThrow("Invalid sequence: " + inputString);
+  }).toThrow("At least one of the sequences is empty.");
 });

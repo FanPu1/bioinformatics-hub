@@ -14,7 +14,7 @@ function cleanup(string) {
   let outputString = string.replace(/\d|\s/g, "");
   // step 2: Check if the output string is empty.
   if (!outputString || outputString.length === 0) {
-    throw new Error("Invalid sequence: " + string);
+    throw new Error("At least one of the sequences is empty.");
   }
   // Step 3: If the output string not only contains letters, "*", or "-", then thrown a exception
   const expectedRegExp = new RegExp("[^a-zA-Z-*]");
